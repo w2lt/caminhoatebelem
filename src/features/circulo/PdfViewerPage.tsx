@@ -111,7 +111,7 @@ export function PdfViewerPage() {
     <div className="space-y-3">
       <PageHeader title={rec?.name ?? 'PDF'} subtitle={doc ? `${doc.numPages} páginas · disponível sem internet` : 'Carregando…'} back="/circulo" />
       {error && (
-        <p role="alert" className="rounded-xl bg-rosa-claro p-3 font-medium text-erro">
+        <p role="alert" className="rounded-2xl bg-rosa-claro p-4 font-bold text-erro">
           {error}
         </p>
       )}

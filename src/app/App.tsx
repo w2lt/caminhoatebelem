@@ -33,8 +33,12 @@ const AtivacaoPage = lazy(() => import('../features/mais/AtivacaoPage').then((m)
 
 function Splash() {
   return (
-    <div className="grid min-h-dvh place-items-center bg-creme" role="status">
-      <p className="font-serif text-xl text-roxo">Caminho até Belém…</p>
+    <div className="ceu grid min-h-dvh place-items-center" role="status">
+      <div className="grid justify-items-center gap-4">
+        <img src="/icon.svg" alt="" className="size-20 rounded-[1.4rem] shadow-[var(--shadow-elevada)]" />
+        <p className="font-display text-3xl text-creme">Caminho até Belém</p>
+        <span className="sr-only">Carregando…</span>
+      </div>
     </div>
   );
 }

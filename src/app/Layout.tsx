@@ -45,15 +45,17 @@ function UpdateBanner() {
   } = useRegisterSW();
   if (!needRefresh) return null;
   return (
-    <div role="status" className="mx-auto mb-3 flex max-w-2xl items-center gap-3 rounded-2xl bg-roxo p-3 text-white">
-      <RefreshCw aria-hidden className="size-5 shrink-0" />
-      <p className="flex-1">Nova versão disponível.</p>
-      <button type="button" className="min-h-11 rounded-xl bg-white px-3 font-semibold text-roxo" onClick={() => updateServiceWorker(true)}>
-        Atualizar
-      </button>
-      <button type="button" className="min-h-11 rounded-xl px-2 underline" onClick={() => setNeedRefresh(false)}>
-        Depois
-      </button>
+    <div role="status" className="surgir mx-auto mb-4 flex max-w-2xl flex-wrap items-center gap-3 rounded-3xl bg-noite p-4 text-creme shadow-[var(--shadow-elevada)]">
+      <RefreshCw aria-hidden className="size-5 shrink-0 text-dourado" />
+      <p className="flex-1 font-bold">Nova versão disponível.</p>
+      <div className="flex gap-2">
+        <button type="button" className="min-h-11 rounded-full bg-dourado px-4 font-extrabold text-noite" onClick={() => updateServiceWorker(true)}>
+          Atualizar
+        </button>
+        <button type="button" className="min-h-11 rounded-full px-3 font-bold text-creme underline underline-offset-4" onClick={() => setNeedRefresh(false)}>
+          Depois
+        </button>
+      </div>
     </div>
   );
 }
@@ -74,33 +76,33 @@ export function Layout({ children }: { children?: ReactNode }) {
 
   return (
     <div className="min-h-dvh bg-creme">
-      <a href="#conteudo" className="sr-only-focusable fixed left-2 top-2 z-50 rounded-lg bg-roxo px-3 py-2 text-white">
+      <a href="#conteudo" className="sr-only-focusable fixed left-2 top-2 z-50 rounded-full bg-roxo px-4 py-2 font-bold text-white">
         Pular para o conteúdo
       </a>
-      <main id="conteudo" className="mx-auto max-w-2xl px-4 pb-32 pt-4">
+      <main id="conteudo" className="mx-auto max-w-2xl px-4 pb-36 pt-4">
         {!online && (
-          <p className="mb-3 flex items-center gap-2 rounded-xl bg-dourado-claro px-3 py-2 text-sm font-medium text-dourado-texto" role="status">
-            <WifiOff aria-hidden className="size-4" /> Sem internet: orações, novena e agenda continuam funcionando.
+          <p className="mb-4 flex items-center gap-2 rounded-full bg-dourado-claro px-4 py-2 text-sm font-bold text-dourado-texto" role="status">
+            <WifiOff aria-hidden className="size-4 shrink-0" /> Sem internet: orações, novena e agenda continuam funcionando.
           </p>
         )}
         <UpdateBanner />
         {children ?? <Outlet />}
       </main>
-      <nav aria-label="Navegação principal" className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-borda bg-papel">
-        <ul className="mx-auto grid max-w-2xl grid-cols-4">
+      <nav aria-label="Navegação principal" className="safe-bottom fixed inset-x-0 bottom-0 z-30 px-3 pb-3">
+        <ul className="mx-auto grid max-w-xl grid-cols-4 rounded-[1.75rem] bg-papel/95 p-1.5 shadow-[var(--shadow-elevada)] ring-1 ring-borda backdrop-blur">
           {NAV.map(({ to, label, icon: Icon, end }) => (
             <li key={to}>
               <NavLink
                 to={to}
                 end={end}
                 className={({ isActive }) =>
-                  cx('flex min-h-16 flex-col items-center justify-center gap-0.5 text-sm font-semibold', isActive ? 'text-roxo' : 'text-tinta-suave')
+                  cx('flex min-h-[3.75rem] flex-col items-center justify-center gap-0.5 rounded-3xl text-[0.8125rem] font-bold transition-colors', isActive ? 'text-roxo' : 'text-tinta-suave hover:text-roxo')
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <span className={cx('grid h-8 w-14 place-items-center rounded-full', isActive && 'bg-roxo-claro')}>
-                      <Icon aria-hidden className="size-6" />
+                    <span className={cx('grid h-8 w-14 place-items-center rounded-full transition-colors', isActive && 'bg-lavanda-claro')}>
+                      <Icon aria-hidden className="size-6" strokeWidth={isActive ? 2.2 : 1.8} />
                     </span>
                     {label}
                   </>

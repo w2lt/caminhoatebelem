@@ -8,7 +8,12 @@ import { liturgicalDay } from '../../domain/liturgical';
 import { useOnline } from '../../lib/hooks';
 import { Badge, Card, EmptyState, ExternalLink, PageHeader, ReviewNote } from '../../ui/kit';
 import { FontSizeControl, ReadingCard, ShareButton } from '../../ui/reading';
-import { LiturgicalColor } from '../shared';
+
+/** Tom suave da cor litúrgica usado como fundo do cartão da celebração. */
+const TINTA: Record<string, string> = { roxo: '#efe9f6', rosa: '#f8e9ef', branco: '#f6edd6', vermelho: '#f6e2e2', verde: '#e4ede7' };
+
+const dot = 'absolute -left-[1.3rem] top-3.5 size-2.5 rounded-full bg-papel ring-2 ring-lavanda';
+const rotulo = 'text-xs font-extrabold uppercase tracking-[0.12em] text-tinta-suave';
 
 export function LiturgiaPage() {
   const { data = '' } = useParams();
@@ -39,80 +44,101 @@ export function LiturgiaPage() {
   const prev = liturgiaPorData(addDaysIso(lit.data, -1));
   const next = liturgiaPorData(addDaysIso(lit.data, 1));
   const pendente = lit.missas.some((m) => m.leituras.some((l) => l.validacao === 'pendente'));
+  const fontes = fontesOficiais(lit.data);
 
   return (
     <div className="space-y-4">
-      <PageHeader title="Liturgia diária" subtitle={longDate(lit.data)} back="/rezar" actions={<FontSizeControl />} />
+      <PageHeader eyebrow="Liturgia diária" title={longDate(lit.data).replace(/ de \d{4}$/, '')} back="/rezar" actions={<FontSizeControl />} />
 
-      <Card className="overflow-hidden" aria-labelledby="celebracao">
-        <div aria-hidden className="-mx-4 -mt-4 mb-3 h-2" style={{ background: cor.hex }} />
-        <h2 id="celebracao" className="font-serif text-xl font-bold">
+      <section
+        className="rounded-3xl p-5 shadow-[var(--shadow-suave)]"
+        style={{ background: `linear-gradient(135deg, ${TINTA[lit.cor] ?? '#efe9f6'}, var(--color-papel) 72%)` }}
+        aria-labelledby="celebracao"
+      >
+        <h2 id="celebracao" className="font-display text-[1.875rem] leading-[1.08]">
           {lit.celebracao}
         </h2>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className="inline-flex items-center gap-2 rounded-full bg-papel px-3 py-0.5 text-sm font-extrabold shadow-[var(--shadow-suave)]">
+            <span aria-hidden className="size-3.5 rounded-full ring-1 ring-black/15" style={{ background: cor.hex }} />
+            Cor litúrgica: {cor.nome}
+          </span>
           <Badge>{lit.grau}</Badge>
           {ld.season === 'advento' && <Badge tone="cinza">Ano {ld.cal.ciclo}</Badge>}
         </div>
-        <p className="mt-2">
-          <LiturgicalColor cor={lit.cor} /> — {cor.sentido}
-        </p>
+        <p className="mt-3 text-tinta-suave">{cor.sentido}</p>
         {lit.observacao && (
           <p className="mt-2 flex gap-2 text-tinta-suave">
             <Info aria-hidden className="mt-0.5 size-5 shrink-0" /> {lit.observacao}
           </p>
         )}
-      </Card>
+      </section>
 
       {lit.missas.map((m, i) => (
-        <Card key={i} aria-labelledby={`missa-${i}`}>
-          <h2 id={`missa-${i}`} className="font-serif text-lg font-bold text-roxo">
+        <section key={i} aria-labelledby={`missa-${i}`} className="rounded-3xl bg-papel p-5 shadow-[var(--shadow-suave)]">
+          <h2 id={`missa-${i}`} className="font-display text-[1.625rem] leading-tight text-roxo">
             {m.nome ?? 'Leituras da Missa'}
           </h2>
-          <dl className="mt-2 divide-y divide-borda">
-            {m.leituras.map((l) => (
-              <Fragment key={l.tipo + l.referencia}>
-              {l.tipo === 'Evangelho' && !m.leituras.some((x) => x.tipo === 'Aclamação ao Evangelho') && (
-                <div className="py-2">
-                  <dt className="text-sm font-bold uppercase tracking-wide text-tinta-suave">Aclamação ao Evangelho</dt>
-                  <dd className="text-tinta-suave">Conforme o Lecionário — veja na fonte oficial.</dd>
-                </div>
-              )}
-              <div className="py-2">
-                <dt className="text-sm font-bold uppercase tracking-wide text-tinta-suave">{l.tipo}</dt>
-                <dd className="text-lg font-semibold">
-                  {l.referencia}
-                  {l.alternativa && <span className="block text-base font-normal text-tinta-suave">{l.alternativa}</span>}
-                  {l.textoIntegral && (
-                    <span className="leitura mt-1 block font-normal">
-                      {l.textoIntegral.texto}
-                      <span className="mt-1 block font-sans text-xs text-tinta-suave">Fonte: {l.textoIntegral.fonte} · {l.textoIntegral.licenca}</span>
-                    </span>
+          <ol className="relative mt-3 grid gap-1 pl-6 before:absolute before:bottom-24 before:left-[0.45rem] before:top-4 before:w-[1.5px] before:bg-lavanda-claro">
+            {m.leituras.map((l) => {
+              const ev = l.tipo === 'Evangelho';
+              const semAclamacao = ev && !m.leituras.some((x) => x.tipo === 'Aclamação ao Evangelho');
+              return (
+                <Fragment key={l.tipo + l.referencia}>
+                  {semAclamacao && (
+                    <li className="relative py-2">
+                      <span aria-hidden className={dot} />
+                      <p className={rotulo}>Aclamação ao Evangelho</p>
+                      <p className="text-tinta-suave">Conforme o Lecionário — veja na fonte oficial.</p>
+                    </li>
                   )}
-                </dd>
-              </div>
-              </Fragment>
-            ))}
-          </dl>
-        </Card>
+                  {ev ? (
+                    <li className="relative -ml-6 mt-2">
+                      <div className="ceu rounded-3xl p-5 text-creme">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-dourado">Evangelho</p>
+                        <p className="font-display mt-1 text-[1.875rem] leading-tight text-white">{l.referencia}</p>
+                        {l.alternativa && <p className="text-creme">{l.alternativa}</p>}
+                        {l.textoIntegral && (
+                          <p className="leitura mt-2">
+                            {l.textoIntegral.texto}
+                            <span className="mt-1 block font-sans text-xs">
+                              Fonte: {l.textoIntegral.fonte} · {l.textoIntegral.licenca}
+                            </span>
+                          </p>
+                        )}
+                        <a
+                          href={fontes[0]!.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 font-bold text-creme ring-1 ring-white/25"
+                        >
+                          Ler o Evangelho completo <ExtIcon aria-hidden className="size-4" />
+                          <span className="sr-only"> (abre fora do app, requer internet)</span>
+                        </a>
+                      </div>
+                    </li>
+                  ) : (
+                    <li className="relative py-2">
+                      <span aria-hidden className={dot} />
+                      <p className={rotulo}>{l.tipo}</p>
+                      <p className="text-[1.1875rem] font-extrabold">{l.referencia}</p>
+                      {l.alternativa && <p className="text-tinta-suave">{l.alternativa}</p>}
+                      {l.textoIntegral && (
+                        <p className="leitura mt-1">
+                          {l.textoIntegral.texto}
+                          <span className="mt-1 block font-sans text-xs text-tinta-suave">
+                            Fonte: {l.textoIntegral.fonte} · {l.textoIntegral.licenca}
+                          </span>
+                        </p>
+                      )}
+                    </li>
+                  )}
+                </Fragment>
+              );
+            })}
+          </ol>
+        </section>
       ))}
-
-      <Card aria-labelledby="fontes">
-        <h2 id="fontes" className="flex items-center gap-2 font-semibold">
-          <ExtIcon aria-hidden className="size-5 text-roxo" /> Ler os textos completos
-        </h2>
-        <p className="mt-1 text-tinta-suave">
-          Os textos bíblicos e litúrgicos oficiais têm direitos autorais e não são reproduzidos no app. Leia na sua Bíblia pelas referências acima ou nas fontes abaixo
-          {online ? '.' : ' (é preciso estar conectado à internet).'}
-        </p>
-        <ul className="mt-2 space-y-2">
-          {fontesOficiais(lit.data).map((f) => (
-            <li key={f.url}>
-              <ExternalLink href={f.url}>{f.nome}</ExternalLink>
-            </li>
-          ))}
-        </ul>
-        {pendente && <p className="mt-3 text-xs text-tinta-suave">Referências conforme o Lecionário Romano, em conferência editorial com o Diretório Litúrgico da CNBB.</p>}
-      </Card>
 
       <ReadingCard
         kicker="Reflexão sobre o Evangelho"
@@ -123,23 +149,41 @@ export function LiturgiaPage() {
         <ReviewNote show={lit.revisaoReflexao === 'pendente'} />
       </ReadingCard>
 
-      <Card>
-        <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-dourado-texto">
-          <Target aria-hidden className="size-5" /> Propósito do dia
+      <section className="rounded-3xl bg-dourado-claro p-5" aria-labelledby="proposito">
+        <h2 id="proposito" className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-dourado-texto">
+          <Target aria-hidden className="size-4" /> Propósito do dia
+        </h2>
+        <p className="leitura mt-2">{lit.proposito}</p>
+      </section>
+
+      <Card aria-labelledby="fontes">
+        <h2 id="fontes" className="flex items-center gap-2 font-extrabold">
+          <ExtIcon aria-hidden className="size-5 text-roxo" /> Ler os textos completos
+        </h2>
+        <p className="mt-1 text-tinta-suave">
+          Os textos bíblicos e litúrgicos oficiais têm direitos autorais e não são reproduzidos no app. Leia na sua Bíblia pelas referências acima ou nas fontes abaixo
+          {online ? '.' : ' (é preciso estar conectado à internet).'}
         </p>
-        <p className="leitura mt-1">{lit.proposito}</p>
+        <ul className="mt-3 space-y-2">
+          {fontes.map((f) => (
+            <li key={f.url}>
+              <ExternalLink href={f.url}>{f.nome}</ExternalLink>
+            </li>
+          ))}
+        </ul>
+        {pendente && <p className="mt-3 text-xs text-tinta-suave">Referências conforme o Lecionário Romano, em conferência editorial com o Diretório Litúrgico da CNBB.</p>}
       </Card>
 
-      <nav aria-label="Outros dias" className="flex justify-between gap-2">
+      <nav aria-label="Outros dias" className="flex flex-wrap justify-between gap-2">
         {prev ? (
-          <Link to={`/liturgia/${prev.data}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-semibold text-roxo">
+          <Link to={`/liturgia/${prev.data}`} className="inline-flex min-h-12 items-center gap-1 rounded-full bg-papel pl-2 pr-4 font-bold text-roxo shadow-[var(--shadow-suave)]">
             <ChevronLeft aria-hidden className="size-5" /> Dia anterior
           </Link>
         ) : (
           <span />
         )}
         {next && (
-          <Link to={`/liturgia/${next.data}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-semibold text-roxo">
+          <Link to={`/liturgia/${next.data}`} className="inline-flex min-h-12 items-center gap-1 rounded-full bg-papel pl-4 pr-2 font-bold text-roxo shadow-[var(--shadow-suave)]">
             Próximo dia <ChevronRight aria-hidden className="size-5" />
           </Link>
         )}

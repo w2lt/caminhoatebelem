@@ -27,11 +27,11 @@ export function FamiliaPage() {
           const done = !!feitos?.has(d.data);
           const isHoje = d.data === today;
           return (
-            <li key={d.data} className={cx('rounded-2xl border bg-papel p-3', isHoje ? 'border-2 border-roxo' : 'border-borda')}>
+            <li key={d.data} className={cx('rounded-3xl bg-papel p-4 shadow-[var(--shadow-suave)]', isHoje && 'ring-2 ring-roxo')}>
               <p className="text-sm text-tinta-suave">
                 {tinyDate(d.data)}
                 {isHoje && ' · hoje'} ·{' '}
-                <Link to={`/dia/${d.data}`} className="font-semibold text-roxo underline">
+                <Link to={`/dia/${d.data}`} className="font-bold text-roxo underline">
                   {d.tema}
                 </Link>
               </p>
@@ -42,7 +42,7 @@ export function FamiliaPage() {
                   aria-pressed={done}
                   aria-label={done ? `Desmarcar: ${d.familia}` : `Marcar como feito: ${d.familia}`}
                   onClick={() => toggleMark('familia', d.data)}
-                  className={cx('grid size-12 shrink-0 place-items-center rounded-full border-2', done ? 'border-verde bg-verde text-white' : 'border-verde text-verde')}
+                  className={cx('grid size-12 shrink-0 place-items-center rounded-full', done ? 'bg-verde text-white' : 'bg-verde-claro text-verde')}
                 >
                   <Check aria-hidden className="size-6" />
                 </button>

@@ -11,14 +11,14 @@ export function Sheet({ open, onOpenChange, title, description, children }: { op
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-40 bg-black/45" />
+        <Dialog.Overlay className="fixed inset-0 z-40 bg-noite/55 backdrop-blur-[2px]" />
         <Dialog.Content
-          className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-papel p-5 pb-8 shadow-2xl sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:rounded-3xl"
+          className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-[2rem] bg-papel p-6 pb-9 shadow-[var(--shadow-elevada)] sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:rounded-[2rem]"
           {...(description ? {} : { 'aria-describedby': undefined })}
         >
           <div className="mb-3 flex items-start justify-between gap-3">
-            <Dialog.Title className="font-serif text-xl font-bold text-roxo">{title}</Dialog.Title>
-            <Dialog.Close className="grid size-11 shrink-0 place-items-center rounded-full hover:bg-roxo-claro" aria-label="Fechar">
+            <Dialog.Title className="font-display text-[1.75rem] leading-tight text-roxo">{title}</Dialog.Title>
+            <Dialog.Close className="grid size-11 shrink-0 place-items-center rounded-full bg-lavanda-claro text-roxo hover:bg-[#e4dcf1]" aria-label="Fechar">
               <X aria-hidden className="size-6" />
             </Dialog.Close>
           </div>
@@ -123,7 +123,7 @@ export function ShareDialog({ open, onOpenChange, title, text, card }: { open: b
             href={whatsappUrl(signed)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-verde bg-papel px-4 font-semibold text-verde"
+            className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full bg-verde-claro px-4 font-bold text-verde"
           >
             <MessageCircle aria-hidden className="size-5" /> WhatsApp
           </a>
@@ -131,8 +131,8 @@ export function ShareDialog({ open, onOpenChange, title, text, card }: { open: b
       </div>
 
       {card && (
-        <div className="mt-6 border-t border-borda pt-4">
-          <h3 className="mb-2 flex items-center gap-2 font-semibold">
+        <div className="mt-6 border-t border-borda pt-5">
+          <h3 className="mb-3 flex items-center gap-2 font-bold">
             <ImageIcon aria-hidden className="size-5 text-roxo" /> Cartão para compartilhar
           </h3>
           <fieldset>
@@ -141,7 +141,7 @@ export function ShareDialog({ open, onOpenChange, title, text, card }: { open: b
               {(Object.keys(CARD_FORMATS) as CardFormat[]).map((f) => (
                 <label
                   key={f}
-                  className={cx('flex min-h-12 cursor-pointer items-center justify-center rounded-xl border-2 px-2 text-center text-sm font-semibold', format === f ? 'border-roxo bg-roxo-claro text-roxo' : 'border-borda')}
+                  className={cx('flex min-h-12 cursor-pointer items-center justify-center rounded-full px-2 text-center text-sm font-bold ring-[1.5px] ring-inset', format === f ? 'bg-roxo text-white ring-roxo' : 'bg-papel ring-lavanda text-lavanda-texto')}
                 >
                   <input type="radio" name="formato" className="sr-only" checked={format === f} onChange={() => setFormat(f)} />
                   {f === 'story' ? '9:16' : f === 'feed' ? '4:5' : '1:1'}
@@ -150,12 +150,12 @@ export function ShareDialog({ open, onOpenChange, title, text, card }: { open: b
             </div>
             <p className="mt-1 text-sm text-tinta-suave">{CARD_FORMATS[format].label}</p>
           </fieldset>
-          <div className="mt-3 grid place-items-center rounded-xl bg-creme p-3">
+          <div className="mt-3 grid place-items-center rounded-3xl bg-creme p-4">
             {preview === null && <p className="py-10 text-tinta-suave">Preparando o cartão…</p>}
             {preview === 'nao-cabe' && <p className="py-6 text-center">Este texto é longo demais para o formato {CARD_FORMATS[format].label.split(' ')[0]}. Escolha outro formato ou compartilhe o texto.</p>}
             {preview === 'erro' && <p className="py-6 text-center text-erro">Não foi possível gerar o cartão neste aparelho.</p>}
             {typeof preview === 'object' && preview && (
-              <img src={preview.url} alt={`Cartão: ${card.kicker}. ${card.title ?? ''}`} className="max-h-80 w-auto rounded-lg shadow" />
+              <img src={preview.url} alt={`Cartão: ${card.kicker}. ${card.title ?? ''}`} className="max-h-80 w-auto rounded-xl shadow-[var(--shadow-elevada)]" />
             )}
           </div>
           {typeof preview === 'object' && preview && (

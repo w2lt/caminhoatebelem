@@ -75,7 +75,7 @@ export function LembretesPage() {
       </Button>
 
       <Card>
-        <h2 className="font-semibold">Avisos com o app aberto</h2>
+        <h2 className="font-bold">Avisos com o app aberto</h2>
         {!cap.notifications ? (
           <p className="mt-1 text-tinta-suave">Este navegador não oferece notificações. Use o calendário do celular.</p>
         ) : cap.permission === 'granted' ? (

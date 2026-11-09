@@ -17,8 +17,8 @@ export function AtivacaoPage({ status }: { status: LicenseStatus }) {
     return (
       <div className="space-y-4">
         <PageHeader title="Minha licença" back="/mais" />
-        <Card className="border-2 border-verde">
-          <p className="flex items-center gap-2 font-semibold text-verde">
+        <Card className="bg-verde-claro">
+          <p className="flex items-center gap-2 font-bold text-verde">
             <CheckCircle2 aria-hidden className="size-6" /> {status.state === 'active' ? 'App ativado neste aparelho.' : 'Este app não exige ativação.'}
           </p>
           {status.state === 'active' && <p className="mt-1 text-tinta-suave">Ativado em {new Date(status.activatedAt).toLocaleDateString('pt-BR')}.</p>}
@@ -32,16 +32,16 @@ export function AtivacaoPage({ status }: { status: LicenseStatus }) {
       <div className="mx-auto grid size-16 place-items-center rounded-2xl bg-roxo">
         <KeyRound aria-hidden className="size-8 text-dourado" />
       </div>
-      <h1 className="mt-4 text-center font-serif text-2xl font-bold text-roxo">Ativar o Caminho até Belém</h1>
+      <h1 className="mt-4 text-center font-display text-[2rem] leading-tight text-roxo">Ativar o Caminho até Belém</h1>
       <p className="mt-2 text-center text-tinta-suave">Digite o código de ativação que você recebeu por e-mail após a compra. É preciso internet só agora.</p>
 
       {status.state === 'misconfigured' && (
-        <p role="alert" className="mt-4 rounded-xl bg-rosa-claro p-3 text-erro">
+        <p role="alert" className="mt-4 rounded-2xl bg-rosa-claro p-4 font-bold text-erro">
           A ativação ainda não está configurada nesta versão do app. Fale com o suporte.
         </p>
       )}
       {status.state === 'invalid' && (
-        <p role="alert" className="mt-4 rounded-xl bg-rosa-claro p-3 text-erro">
+        <p role="alert" className="mt-4 rounded-2xl bg-rosa-claro p-4 font-bold text-erro">
           A licença deste aparelho não é válida ({status.reason}). Ative novamente.
         </p>
       )}

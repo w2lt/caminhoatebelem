@@ -63,7 +63,7 @@ export function BackupPage() {
   return (
     <div className="space-y-4">
       <PageHeader title="Backup e restauração" back="/mais" />
-      <Card className="border-2 border-dourado bg-dourado-claro">
+      <Card className="bg-dourado-claro">
         <p className="flex gap-2 text-dourado-texto">
           <AlertTriangle aria-hidden className="mt-0.5 size-5 shrink-0" />
           <span>
@@ -73,7 +73,7 @@ export function BackupPage() {
       </Card>
 
       <Card>
-        <h2 className="font-serif text-lg font-bold text-roxo">Fazer backup</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight text-roxo">Fazer backup</h2>
         <p className="mt-1 text-tinta-suave">
           {s?.lastBackupAt ? `Último backup: ${new Date(s.lastBackupAt).toLocaleString('pt-BR')}.` : 'Você ainda não fez nenhum backup.'}
         </p>
@@ -83,14 +83,14 @@ export function BackupPage() {
       </Card>
 
       <Card>
-        <h2 className="font-serif text-lg font-bold text-roxo">Restaurar backup</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight text-roxo">Restaurar backup</h2>
         <p className="mt-1 text-tinta-suave">Escolha um arquivo de backup do Caminho até Belém (.json). Os dados atuais serão substituídos.</p>
         <input ref={fileRef} type="file" accept="application/json,.json" className="sr-only" id="backup-input" aria-label="Escolher arquivo de backup" tabIndex={-1} onChange={(e) => escolher(e.target.files?.[0])} />
         <Button variant="secundario" icon={Upload} full className="mt-3" onClick={() => fileRef.current?.click()}>
           Escolher arquivo de backup
         </Button>
         {error && (
-          <p role="alert" className="mt-2 rounded-xl bg-rosa-claro p-3 font-medium text-erro">
+          <p role="alert" className="mt-2 rounded-2xl bg-rosa-claro p-4 font-bold text-erro">
             {error}
           </p>
         )}
@@ -98,7 +98,7 @@ export function BackupPage() {
 
       {storage && (
         <Card>
-          <h2 className="flex items-center gap-2 font-semibold">
+          <h2 className="flex items-center gap-2 font-bold">
             <HardDrive aria-hidden className="size-5 text-roxo" /> Armazenamento
           </h2>
           <p className="mt-1 text-tinta-suave">

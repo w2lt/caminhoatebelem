@@ -23,18 +23,19 @@ export function PresepioPage() {
 
   return (
     <div className="space-y-4">
-      <PageHeader title="Presépio" subtitle="Significado, montagem e oração." back="/mais" actions={<FontSizeControl />} />
+      <PageHeader eyebrow="Tradição do Natal" title="Presépio" subtitle="Significado, montagem e oração." back="/mais" actions={<FontSizeControl />} />
+      <img src="/ilustracoes/presepio.webp" alt="Ilustração do presépio em traço dourado: Maria, José e o Menino Jesus na manjedoura sob a Estrela de Belém" className="mx-auto aspect-square w-full max-w-sm rounded-3xl object-cover shadow-[var(--shadow-suave)]" />
 
       <ReadingCard kicker="O que é o presépio">
         <p>{presepio.introducao}</p>
       </ReadingCard>
 
       <Card aria-labelledby="data-presepio">
-        <h2 id="data-presepio" className="font-serif text-lg font-bold text-roxo">
+        <h2 id="data-presepio" className="font-display text-[1.625rem] leading-tight text-roxo">
           Quando montar
         </h2>
         <p className="mt-1">{presepio.dataSugerida}</p>
-        <p className="mt-2 font-semibold">Sugestão: {longDate(sugerida)} (1º Domingo do Advento).</p>
+        <p className="mt-2 font-bold">Sugestão: {longDate(sugerida)} (1º Domingo do Advento).</p>
         <TextField
           className="mt-3"
           label="Data escolhida pela família"
@@ -46,7 +47,7 @@ export function PresepioPage() {
           }}
         />
         {s?.presepioDate && s.presepioDate !== sugerida && (
-          <button type="button" className="mt-2 min-h-11 font-semibold text-roxo underline" onClick={() => setSetting('presepioDate', null)}>
+          <button type="button" className="mt-2 min-h-11 font-bold text-roxo underline" onClick={() => setSetting('presepioDate', null)}>
             Voltar para a data sugerida
           </button>
         )}
@@ -65,20 +66,20 @@ export function PresepioPage() {
           >
             Lembretes no calendário do celular
           </Button>
-          <Link to="/lembretes" className="inline-flex min-h-11 items-center gap-2 font-semibold text-roxo">
+          <Link to="/lembretes" className="inline-flex min-h-11 items-center gap-2 font-bold text-roxo">
             <Bell aria-hidden className="size-5" /> Configurar lembretes do app
           </Link>
         </div>
       </Card>
 
       <Card aria-labelledby="personagens">
-        <h2 id="personagens" className="font-serif text-lg font-bold text-roxo">
+        <h2 id="personagens" className="font-display text-[1.625rem] leading-tight text-roxo">
           Personagens e significados
         </h2>
         <dl className="mt-2 divide-y divide-borda">
           {presepio.personagens.map((p) => (
             <div key={p.nome} className="py-2">
-              <dt className="font-semibold">{p.nome}</dt>
+              <dt className="font-bold">{p.nome}</dt>
               <dd className="text-tinta-suave">{p.significado}</dd>
             </div>
           ))}
@@ -86,7 +87,7 @@ export function PresepioPage() {
       </Card>
 
       <Card aria-labelledby="montagem">
-        <h2 id="montagem" className="font-serif text-lg font-bold text-roxo">
+        <h2 id="montagem" className="font-display text-[1.625rem] leading-tight text-roxo">
           Passo a passo da montagem
         </h2>
         <ol className="mt-2 list-decimal space-y-2 pl-6">
@@ -105,7 +106,7 @@ export function PresepioPage() {
       </ReadingCard>
 
       {cantico && (
-        <Link to={`/canticos#${cantico.id}`} className="flex min-h-14 items-center gap-2 rounded-2xl border border-borda bg-papel p-3 font-semibold text-roxo">
+        <Link to={`/canticos#${cantico.id}`} className="flex min-h-14 items-center gap-2 rounded-3xl bg-papel p-4 font-bold text-roxo shadow-[var(--shadow-suave)]">
           <Music aria-hidden className="size-5" /> Cântico sugerido: {cantico.titulo}
         </Link>
       )}

@@ -6,26 +6,39 @@ import { onboard, tinyPdf } from './helpers';
 test.describe('Caminho até Belém — fluxos principais', () => {
   test('boas-vindas sem cadastro e tela inicial do Domingo Gaudete', async ({ page }) => {
     await onboard(page, '2026-12-13');
-    await expect(page.getByText('3º Domingo do Advento · Gaudete').first()).toBeVisible();
-    await expect(page.getByText('Faltam')).toContainText('12');
+    await expect(page.getByRole('heading', { name: '3º Domingo do Advento', level: 1 })).toBeVisible();
+    await expect(page.getByText('Gaudete · Alegrai-vos')).toBeVisible();
+    await expect(page.locator('header strong')).toHaveText('12');
+    await expect(page.getByText(/dias para\s*o Natal/)).toBeVisible();
+    await expect(page.getByRole('img', { name: '3 de 4 velas da coroa acesas' })).toBeVisible();
     await expect(page.getByText('Cor litúrgica: Rosa')).toBeVisible();
-    await expect(page.getByText('Evangelho: Jo 1,6-8.19-28')).toBeVisible();
+    await expect(page.getByRole('link', { name: /Liturgia\s*Jo 1,6-8\.19-28/ })).toBeVisible();
     await expect(page.getByRole('navigation', { name: 'Navegação principal' }).getByRole('link')).toHaveCount(4);
   });
 
   test('antes do Advento mostra contagem e preparação', async ({ page }) => {
     await onboard(page, '2026-11-08');
-    await expect(page.getByText('Faltam 21 dias para o Advento')).toBeVisible();
+    await expect(page.locator('header strong')).toHaveText('21');
+    await expect(page.getByText(/dias para o\s*Advento/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Prepare-se para o Advento' })).toBeVisible();
   });
 
-  test('oração do dia: marcar como rezada persiste; fonte ajustável na leitura', async ({ page }) => {
+  test('oração do dia: abas, marcar como rezada persiste; fonte ajustável na leitura', async ({ page }) => {
     await onboard(page, '2026-12-01');
     await page.goto('/dia/2026-12-01');
     await expect(page.getByRole('heading', { name: 'Um broto de esperança' })).toBeVisible();
     const marcar = page.getByRole('button', { name: 'Marcar como rezada' }).first();
     await marcar.click();
     await expect(page.getByRole('button', { name: 'Rezei' }).first()).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('tab', { name: /Manhã/ })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.getByRole('tab', { name: 'Manhã (feito)' })).toBeVisible();
+    await page.getByRole('tab', { name: 'Noite' }).click();
+    await expect(page).toHaveURL(/#noite$/);
+    await expect(page.getByRole('tabpanel')).toContainText('Oração para encerrar o dia');
+    await page.getByRole('tab', { name: 'Noite' }).press('ArrowLeft');
+    await expect(page.getByRole('tab', { name: 'Gesto' })).toBeFocused();
+    await expect(page.getByRole('tabpanel')).toContainText('Gesto concreto');
+    await page.goto('/dia/2026-12-01#manha');
     await page.getByRole('button', { name: 'Aumentar o texto' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-font', 'grande');
     await page.reload();
@@ -238,6 +251,26 @@ test.describe('PWA, offline, responsividade e acessibilidade', () => {
       await page.waitForLoadState('networkidle');
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow, path).toBeLessThanOrEqual(0);
+    }
+  });
+
+  test('letra extra grande em 320px: nada transborda (idosos)', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto('/?hoje=2026-12-13');
+    await page.getByRole('button', { name: 'Começar' }).click();
+    await page.getByRole('button', { name: 'Extra grande' }).click();
+    await page.getByRole('button', { name: 'Continuar' }).click();
+    const cont = page.getByRole('button', { name: 'Continuar' });
+    if (await cont.isVisible().catch(() => false)) await cont.click();
+    await page.getByRole('button', { name: 'Iniciar a jornada' }).click();
+    await expect(page.locator('html')).toHaveAttribute('data-font', 'extra');
+    for (const path of ['/', '/rezar', '/dia/2026-12-13', '/dia/2026-12-13#noite', '/liturgia/2026-12-25', '/novena', '/novena/5', '/agenda', '/agenda/novo', '/missas', '/mais', '/coroa', '/presepio', '/canticos', '/familia', '/lembretes', '/ajustes', '/backup', '/circulo']) {
+      await page.goto(path);
+      await page.waitForLoadState('networkidle');
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow, path).toBeLessThanOrEqual(0);
+      const tabsOverflow = await page.evaluate(() => [...document.querySelectorAll('[role=tab]')].filter((e) => e.scrollWidth > e.clientWidth).length);
+      expect(tabsOverflow, `${path} (abas)`).toBe(0);
     }
   });
 

@@ -1,31 +1,49 @@
 @import 'tailwindcss';
 
 /*
- * Design system — Caminho até Belém
- * Paleta-base: Roxo #60377D · Rosa #D99AB5 · Dourado #D7B15B · Creme #F8F3E9 · Verde #476D57
- * Cores usadas como TEXTO têm contraste ≥ 4,5:1 sobre o fundo (WCAG 2.2 AA).
- * Dourado e rosa claros são decorativos (bordas, ícones, faixas); para texto use as variantes escuras.
+ * Design system — Caminho até Belém · "Vigília luminosa" (v3)
+ * A noite roxa do Advento é o fundo dos destaques; o dourado é a luz, usado com parcimônia;
+ * as superfícies de leitura são claras e calmas.
+ *
+ * Paleta-base: Roxo #60377D · Lavanda #A995C8 · Rosa Gaudete #D99AB5 · Dourado #D7B15B · Creme #F8F3E9 · Oliva #476D57
+ * Cores usadas como TEXTO têm contraste ≥ 4,5:1 sobre seu fundo (WCAG 2.2 AA):
+ *  - sobre creme/papel: tinta, tinta-suave, roxo, lavanda-texto, rosa-texto, dourado-texto, verde;
+ *  - sobre noite: creme, dourado (7,7:1), lavanda (5,8:1), rosa (6,9:1).
+ * Lavanda, rosa e dourado CLAROS sobre creme são apenas decorativos.
+ *
+ * Fontes (OFL, incorporadas ao app — iguais em Android e iPhone e disponíveis offline):
+ *  - display: Cormorant Garamond — só em títulos grandes (≥ 22 px);
+ *  - leitura: Literata — orações, reflexões, leituras;
+ *  - interface: Nunito Sans — botões, rótulos, números.
  */
 @theme {
+  --color-noite: #2e1a40;
+  --color-noite-2: #3b2251;
   --color-roxo: #60377d;
-  --color-roxo-escuro: #46265c;
-  --color-roxo-claro: #efe6f4;
+  --color-roxo-escuro: #4a2a62;
+  --color-roxo-claro: #efe9f6;
+  --color-lavanda: #a995c8;
+  --color-lavanda-claro: #eee9f6;
+  --color-lavanda-texto: #5b4a85;
   --color-rosa: #d99ab5;
   --color-rosa-texto: #8c3a60;
-  --color-rosa-claro: #f9e8ef;
+  --color-rosa-claro: #f8e9ef;
   --color-dourado: #d7b15b;
   --color-dourado-texto: #7a5a12;
-  --color-dourado-claro: #f6ecd2;
+  --color-dourado-claro: #f6edd6;
   --color-creme: #f8f3e9;
-  --color-papel: #fffdf8;
+  --color-papel: #fffdf9;
   --color-verde: #476d57;
-  --color-verde-claro: #e3ede6;
-  --color-tinta: #2b2230;
-  --color-tinta-suave: #5a4f60;
-  --color-borda: #e2d8c8;
+  --color-verde-claro: #e4ede7;
+  --color-tinta: #2a2131;
+  --color-tinta-suave: #5e5466;
+  --color-borda: #e7ddcf;
   --color-erro: #a3262a;
-  --font-sans: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  --font-sans: 'Nunito Sans', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-serif: 'Literata', Georgia, 'Times New Roman', serif;
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --shadow-suave: 0 1px 2px rgb(46 26 64 / 0.06), 0 8px 24px rgb(46 26 64 / 0.07);
+  --shadow-elevada: 0 2px 4px rgb(46 26 64 / 0.08), 0 16px 36px rgb(46 26 64 / 0.16);
 }
 
 /* Três tamanhos de letra. Tudo usa rem, então a interface inteira acompanha. */
@@ -40,7 +58,7 @@ html[data-font='extra'] {
   font-size: 137.5%;
 }
 
-/* Alto contraste: texto mais escuro, bordas mais fortes, fundos lisos. */
+/* Alto contraste: texto mais escuro, bordas mais fortes, fundos lisos, sem sombras decorativas. */
 html[data-contrast='alto'] {
   --color-tinta: #000;
   --color-tinta-suave: #1f1a22;
@@ -48,9 +66,13 @@ html[data-contrast='alto'] {
   --color-creme: #ffffff;
   --color-papel: #ffffff;
   --color-roxo: #3f1f57;
+  --color-noite: #1c0f28;
   --color-verde: #234a33;
   --color-rosa-texto: #6b1f43;
   --color-dourado-texto: #503a05;
+  --color-lavanda-texto: #3e2f66;
+  --shadow-suave: 0 0 0 1px #6b5d73;
+  --shadow-elevada: 0 0 0 2px #1f1a22;
 }
 
 body {
@@ -59,13 +81,25 @@ body {
   font-family: var(--font-sans);
   line-height: 1.55;
   min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Títulos: Cormorant com peso firme e quebra equilibrada. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  /* algarismos alinhados (o padrão do Cormorant são algarismos antigos: "12" parecia "I2") */
+  font-variant-numeric: lining-nums;
 }
 
 /* Foco sempre visível para quem usa teclado ou leitor de tela. */
 :focus-visible {
   outline: 3px solid var(--color-dourado-texto);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 /* O título recebe foco ao trocar de tela (para leitores de tela); não precisa de contorno. */
@@ -73,14 +107,80 @@ h1[tabindex='-1']:focus {
   outline: none;
 }
 
-/* Texto de leitura (orações e reflexões): serifado e confortável. */
+/* Texto de leitura (orações e reflexões): Literata, grande e com respiro. */
 .leitura {
   font-family: var(--font-serif);
-  font-size: 1.125rem;
-  line-height: 1.75;
+  font-size: 1.1875rem;
+  line-height: 1.8;
 }
 .leitura p + p {
   margin-top: 0.85em;
+}
+
+/* Capitular discreta na abertura das orações. */
+.capitular::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.85;
+  padding: 0.08em 0.1em 0 0;
+  color: var(--color-roxo);
+}
+
+/* Filete ornamental dourado com uma pequena estrela no centro. */
+.ornamento {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-dourado);
+}
+.ornamento::before,
+.ornamento::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+/* Céu de Belém (ilustração do Canva) para os cabeçalhos escuros. */
+.ceu {
+  background-color: var(--color-noite);
+  background-image: linear-gradient(180deg, rgb(46 26 64 / 0.15), rgb(46 26 64 / 0.55)), url('/ilustracoes/ceu.webp');
+  background-size: cover;
+  background-position: 62% 30%;
+}
+html[data-contrast='alto'] .ceu {
+  background-image: none;
+}
+
+/* Chama das velas: leve cintilar, desligado quando o sistema pede menos movimento. */
+.chama {
+  background: radial-gradient(circle at 50% 70%, #ffe7a6, #d7b15b 60%, transparent 72%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: 0 0 12px 4px rgb(215 177 91 / 0.35);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chama {
+    animation: cintilar 3.4s ease-in-out infinite;
+    transform-origin: 50% 100%;
+  }
+  @keyframes cintilar {
+    50% {
+      transform: scaleY(1.12) translateY(-1px);
+      opacity: 0.9;
+    }
+  }
+  .surgir {
+    animation: surgir 0.35s ease-out both;
+  }
+  @keyframes surgir {
+    from {
+      opacity: 0.4;
+      transform: translateY(6px);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

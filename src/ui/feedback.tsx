@@ -25,13 +25,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <Ctx.Provider value={show}>
       {children}
-      <div className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex flex-col items-center gap-2 px-4" aria-live="polite" role="status">
+      <div className="pointer-events-none fixed inset-x-0 bottom-28 z-50 flex flex-col items-center gap-2 px-4" aria-live="polite" role="status">
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`pointer-events-auto flex max-w-md items-start gap-2 rounded-xl px-4 py-3 text-base font-medium text-white shadow-lg ${t.tone === 'erro' ? 'bg-erro' : 'bg-verde'}`}
+            className={`surgir pointer-events-auto flex max-w-md items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold text-creme shadow-[var(--shadow-elevada)] ${t.tone === 'erro' ? 'bg-erro' : 'bg-noite'}`}
           >
-            {t.tone === 'erro' ? <AlertTriangle aria-hidden className="mt-0.5 size-5 shrink-0" /> : <CheckCircle2 aria-hidden className="mt-0.5 size-5 shrink-0" />}
+            {t.tone === 'erro' ? <AlertTriangle aria-hidden className="size-6 shrink-0" /> : <CheckCircle2 aria-hidden className="size-6 shrink-0 text-dourado" />}
             <span>{t.text}</span>
           </div>
         ))}

@@ -41,7 +41,7 @@ export function AgendaPage() {
         title="Agenda do Advento"
         subtitle="Missas, confissões, novenas e encontros da comunidade."
         actions={
-          <Link to="/agenda/novo" className="inline-flex min-h-12 items-center gap-1 rounded-xl bg-roxo px-3 font-semibold text-white">
+          <Link to="/agenda/novo" className="inline-flex min-h-12 items-center gap-1 rounded-full bg-roxo pl-3 pr-4 font-extrabold text-white shadow-[0_6px_16px_rgb(96_55_125/0.28)]">
             <Plus aria-hidden className="size-5" /> Nova
           </Link>
         }
@@ -60,7 +60,7 @@ export function AgendaPage() {
       {all && all.length === 0 && (
         <EmptyState icon={CalendarDays} title="Sua agenda está vazia.">
           <p>Cadastre as Missas, confissões, novenas e encontros da sua comunidade.</p>
-          <Link to="/agenda/novo" className="mt-3 inline-flex min-h-12 items-center gap-1 rounded-xl bg-roxo px-4 font-semibold text-white">
+          <Link to="/agenda/novo" className="mt-3 inline-flex min-h-[3.25rem] items-center gap-1 rounded-full bg-roxo px-5 font-extrabold text-white">
             <Plus aria-hidden className="size-5" /> Cadastrar atividade
           </Link>
         </EmptyState>
@@ -68,7 +68,7 @@ export function AgendaPage() {
 
       {all && all.length > 0 && (
         <section aria-labelledby="proximas">
-          <h2 id="proximas" className="mb-2 font-serif text-xl font-bold text-roxo">
+          <h2 id="proximas" className="mb-2 font-display text-[1.75rem] leading-tight text-roxo">
             Próximas
           </h2>
           {upcoming.length === 0 ? (

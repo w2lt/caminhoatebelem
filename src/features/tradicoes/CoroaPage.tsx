@@ -1,9 +1,9 @@
-import { Flame } from 'lucide-react';
 import { coroa } from '../../content/tradicoes';
 import { liturgicalDay } from '../../domain/liturgical';
 import { longDate } from '../../domain/dates';
 import { useToday } from '../../lib/hooks';
-import { Card, PageHeader, ReviewNote, cx } from '../../ui/kit';
+import { Card, PageHeader, ReviewNote } from '../../ui/kit';
+import { Velas } from '../shared-visuals';
 import { FontSizeControl, ReadingCard, ShareButton } from '../../ui/reading';
 
 const VELA: Record<number, string> = { 1: '#60377D', 2: '#60377D', 3: '#D99AB5', 4: '#60377D' };
@@ -15,20 +15,15 @@ export function CoroaPage() {
 
   return (
     <div className="space-y-4">
-      <PageHeader title="Coroa do Advento" subtitle="Significado, cores e orações dos domingos." back="/mais" actions={<FontSizeControl />} />
+      <PageHeader eyebrow="Tradição do Advento" title="Coroa do Advento" subtitle="Significado, cores e orações dos domingos." back="/mais" actions={<FontSizeControl />} />
 
-      <Card className="text-center">
-        <div className="flex items-end justify-center gap-4" role="img" aria-label={`${acesas} de 4 velas acesas nesta semana`}>
-          {[1, 2, 3, 4].map((n) => (
-            <div key={n} className="flex flex-col items-center">
-              <Flame aria-hidden className={cx('size-7', n <= acesas ? 'text-dourado' : 'text-transparent')} />
-              <div className="h-16 w-5 rounded-t-md" style={{ background: VELA[n] }} />
-            </div>
-          ))}
+      <section className="overflow-hidden rounded-3xl bg-papel shadow-[var(--shadow-suave)]" aria-label="Velas desta semana">
+        <img src="/ilustracoes/coroa.webp" alt="Ilustração de uma coroa do Advento com três velas roxas e uma rosa entre ramos verdes" className="aspect-[4/3] w-full object-cover object-[50%_45%]" />
+        <div className="flex items-center justify-between gap-4 bg-noite px-5 py-4 text-creme">
+          <p className="font-bold">{acesas === 0 ? 'Nenhuma vela acesa ainda.' : `${acesas} vela${acesas > 1 ? 's' : ''} acesa${acesas > 1 ? 's' : ''} nesta semana`}</p>
+          <Velas acesas={acesas} />
         </div>
-        <div className="mx-auto -mt-1 h-4 w-48 rounded-full bg-verde" aria-hidden />
-        <p className="mt-2 text-tinta-suave">{acesas === 0 ? 'Nenhuma vela acesa ainda.' : `${acesas} vela${acesas > 1 ? 's' : ''} acesa${acesas > 1 ? 's' : ''} nesta semana.`}</p>
-      </Card>
+      </section>
 
       {coroa.secoes.map((s) => (
         <ReadingCard key={s.titulo} kicker={s.titulo}>
@@ -37,10 +32,10 @@ export function CoroaPage() {
       ))}
 
       <Card aria-labelledby="cores">
-        <h2 id="cores" className="font-serif text-lg font-bold text-roxo">
+        <h2 id="cores" className="font-display text-[1.625rem] leading-tight text-roxo">
           Cores litúrgicas e cores das velas
         </h2>
-        <h3 className="mt-2 font-semibold">Cores litúrgicas (normas da Igreja)</h3>
+        <h3 className="mt-2 font-bold">Cores litúrgicas (normas da Igreja)</h3>
         <p className="leitura">{coroa.cores.liturgicas}</p>
         <ul className="mt-2 grid gap-1">
           {coroa.domingos.map((d) => (
@@ -50,11 +45,11 @@ export function CoroaPage() {
             </li>
           ))}
         </ul>
-        <h3 className="mt-3 font-semibold">Cores das velas (tradição local)</h3>
+        <h3 className="mt-3 font-bold">Cores das velas (tradição local)</h3>
         <p className="leitura">{coroa.cores.velas}</p>
       </Card>
 
-      <h2 className="font-serif text-xl font-bold text-roxo">Orações dos domingos</h2>
+      <h2 className="font-display text-[1.75rem] leading-tight text-roxo">Orações dos domingos</h2>
       {coroa.domingos.map((d) => {
         const data = lit.cal.domingos[d.domingo - 1]!;
         return (

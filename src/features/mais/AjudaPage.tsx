@@ -8,7 +8,7 @@ export function InstallSteps() {
   return (
     <div className="grid gap-3">
       <Card aria-labelledby="android">
-        <h2 id="android" className="flex items-center gap-2 font-serif text-lg font-bold text-roxo">
+        <h2 id="android" className="flex items-center gap-2 font-display text-[1.625rem] leading-tight text-roxo">
           <Smartphone aria-hidden className="size-5" /> Android (Chrome)
         </h2>
         <ol className="mt-2 list-decimal space-y-1 pl-6">
@@ -23,7 +23,7 @@ export function InstallSteps() {
         </ol>
       </Card>
       <Card aria-labelledby="iphone">
-        <h2 id="iphone" className="flex items-center gap-2 font-serif text-lg font-bold text-roxo">
+        <h2 id="iphone" className="flex items-center gap-2 font-display text-[1.625rem] leading-tight text-roxo">
           <Apple aria-hidden className="size-5" /> iPhone (Safari)
         </h2>
         <ol className="mt-2 list-decimal space-y-1 pl-6">
@@ -49,13 +49,13 @@ export function AjudaPage() {
     <div className="space-y-4">
       <PageHeader title="Instalar e ajuda" back="/mais" />
       {cap.standalone && (
-        <Card className="border-2 border-verde">
-          <p className="font-semibold text-verde">O app já está instalado neste aparelho.</p>
+        <Card className="bg-verde-claro">
+          <p className="font-bold text-verde">O app já está instalado neste aparelho.</p>
         </Card>
       )}
       <InstallSteps />
       <Card>
-        <h2 className="flex items-center gap-2 font-semibold">
+        <h2 className="flex items-center gap-2 font-bold">
           <WifiOff aria-hidden className="size-5 text-roxo" /> Funciona sem internet?
         </h2>
         <p className="mt-1">
@@ -63,13 +63,13 @@ export function AjudaPage() {
         </p>
       </Card>
       <Card>
-        <h2 className="flex items-center gap-2 font-semibold">
+        <h2 className="flex items-center gap-2 font-bold">
           <DatabaseBackup aria-hidden className="size-5 text-roxo" /> Vou trocar de celular. E agora?
         </h2>
         <p className="mt-1">Faça um backup em Mais → Backup, envie o arquivo para você mesmo (e-mail, Drive ou WhatsApp) e restaure no celular novo.</p>
       </Card>
       <Card>
-        <h2 className="flex items-center gap-2 font-semibold">
+        <h2 className="flex items-center gap-2 font-bold">
           <LifeBuoy aria-hidden className="size-5 text-roxo" /> Suporte
         </h2>
         {SUPPORT_URL ? (

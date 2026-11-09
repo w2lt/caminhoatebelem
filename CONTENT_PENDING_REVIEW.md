@@ -47,6 +47,11 @@ Pontos específicos para o revisor:
 - Dois registros são marcadores para "canto da comunidade" — substituir por cânticos com licença, se houver.
 - `linkAutorizado`: nenhum cadastrado. Incluir apenas links oficiais de detentores.
 
+## 3b. Ilustrações (Canva)
+
+- `public/ilustracoes/ceu.webp`, `coroa.webp`, `presepio.webp`: geradas por IA no Canva (conta do responsável) e exportadas da prancheta "Prancheta creme para ilustrações". Conferir na conta se o uso comercial segue os Termos do Canva para conteúdo gerado por IA e guardar o registro.
+- Revisão iconográfica do presépio (Maria, José e o Menino) por quem fará a revisão editorial.
+
 ## 4. Pendências técnicas
 
 - [ ] Testar em **aparelhos reais**: Android intermediário (Chrome) e iPhone (Safari, instalado na tela inicial) — instalação, offline, PDF, compartilhamento de imagem, ICS no calendário nativo.

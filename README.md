@@ -4,7 +4,7 @@
 
 PWA católica (mobile-first, offline-first e local-first) para o Advento e o Natal: orações diárias, liturgia, reflexões, Novena de Natal, novena dos Círculos Bíblicos, agenda comunitária, Missas de Natal, presépio, coroa do Advento, cânticos, atividades em família e compartilhamento de cartões.
 
-Versão 2.0 · Advento 2026 (29/11 a 25/12/2026, Ano B).
+Versão 2.1 · Advento 2026 (29/11 a 25/12/2026, Ano B) · identidade visual "vigília luminosa" (ver [ARCHITECTURE.md](ARCHITECTURE.md#design-system--vigília-luminosa)).
 
 ## Começar
 
@@ -28,6 +28,9 @@ Abra `http://localhost:5173`. Para ver o conteúdo de outro dia, use `?hoje=AAAA
 | `npm test` | Testes unitários e de componentes (Vitest + Testing Library) |
 | `npm run test:e2e` | Testes ponta a ponta no build (Playwright, Chrome instalado, emulando Android) |
 | `npm run icons` | Regenera os ícones PNG a partir do desenho de `public/icon.svg` |
+| `node scripts/optimize-illustrations.mjs <pasta>` | Converte as ilustrações exportadas do Canva (PNG) em WebP para `public/ilustracoes/` |
+| `node scripts/capture-screens.mjs [url] [pasta]` | Captura as telas do app (celular) — usado na apresentação |
+| `node scripts/build-presentation.mjs` | Gera o PDF da apresentação para a paróquia |
 | `npm run keys:generate -- keys` | Gera o par de chaves da ativação comercial (ver COMMERCIAL_ACTIVATION.md) |
 | `npm run deploy` | Build + publicação na Cloudflare (`wrangler deploy`) |
 
@@ -36,6 +39,7 @@ Abra `http://localhost:5173`. Para ver o conteúdo de outro dia, use `?hoje=AAAA
 | Área | Situação |
 |---|---|
 | Fundação (React/TS/Vite/Tailwind, Dexie, PWA, navegação, design system) | ✅ Implementado e testado |
+| Redesign premium v2.1 (fontes incorporadas, ilustrações do Canva, abas na página do dia, cartões novos) | ✅ Implementado e testado · ponto de restauração: tag `pre-redesign-v2` |
 | Calendário litúrgico automático (qualquer ano) | ✅ Implementado e testado |
 | Orações, reflexões, frases, gestos (27 dias) | ✅ Implementado · ⚠️ conteúdo autoral **pendente de revisão editorial** |
 | Liturgia diária (referências + links oficiais) | ✅ Implementado · ⚠️ referências **pendentes de conferência** com o Diretório Litúrgico CNBB 2026; sem texto integral (sem licença) |

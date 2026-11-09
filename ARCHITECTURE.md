@@ -33,6 +33,18 @@ Cloudflare Worker (worker/index.ts) ─► KV LICENSES (hash dos códigos) + seg
 
 O conteúdo religioso nunca fica dentro de componentes: as telas leem `content/` por funções (`diaPorData`, `liturgiaPorData`, `pacoteDoAno`).
 
+## Design system — vigília luminosa
+
+Redesign v2.1 (aprovado em 09/11/2026; ponto de restauração: tag `pre-redesign-v2`). Conceito: a noite roxa do Advento é o fundo dos destaques; o dourado é a luz, usada com parcimônia; as superfícies de leitura são claras.
+
+- **Tokens** em `src/index.css` (`@theme`): noite `#2E1A40`, roxo `#60377D`, lavanda `#A995C8` (texto `#5B4A85`), rosa Gaudete `#D99AB5` (texto `#8C3A60`), dourado `#D7B15B` (texto `#7A5A12`), oliva `#476D57`, creme `#F8F3E9`, papel `#FFFDF9`, tinta `#2A2131`. Sombras `--shadow-suave` e `--shadow-elevada`. O modo alto contraste redefine os tokens e troca sombras por contornos.
+- **Fontes incorporadas** (`@fontsource`, OFL, só latinas, ~250 KB no pré-cache): Cormorant Garamond (`font-display`, títulos ≥ 22 px, algarismos alinhados), Literata (`font-serif`/`.leitura`, orações), Nunito Sans (`font-sans`, interface).
+- **Ilustrações** (`public/ilustracoes/*.webp`, ~63 KB): céu de Belém, coroa e presépio, geradas no Canva (IA) com a paleta do app e exportadas em alta resolução; classe `.ceu` aplica o céu aos cabeçalhos escuros. Ícone e logotipo continuam desenho próprio (a licença do Canva não permite registrar como marca um logo com elementos do acervo).
+- **Componentes** (`src/ui`): botões em pílula (≥ 52 px), cartões sem borda com sombra suave, cabeçalho com "Voltar" em pílula + sobretítulo dourado + título Cormorant, campos com anel lavanda no foco, navegação inferior flutuante, avisos escuros com ícone dourado, diálogos com cantos de 32 px. Visuais da identidade em `src/features/shared-visuals.tsx` (velas da coroa e estrelas da novena, com rótulos para leitores de tela).
+- **Página do dia** em abas ARIA (Manhã · Reflexão · Frase · Gesto · Noite; setas ←/→, Home/End; `#manha`…`#noite` no endereço).
+- **Cartões** (`services/cards.ts`): moldura em arco, estrela, horizonte de Belém da ilustração, fontes da identidade (carregadas com `document.fonts.load` antes de medir).
+- **Microinterações** (`.surgir`, `.chama`) só quando o sistema não pede redução de movimento.
+
 ## Calendário
 
 - 4º Domingo = último domingo antes de 25/12 (se o Natal cai no domingo, 18/12); 1º Domingo = 4º − 21 dias.

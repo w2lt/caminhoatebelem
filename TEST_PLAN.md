@@ -12,7 +12,18 @@ npm run test:e2e
 
 O E2E faz o build de produção, sobe `vite preview` na porta 4173 e usa o **Google Chrome instalado** (`channel: 'chrome'`) emulando um Pixel 5 em pt-BR / America/Sao_Paulo. Se já houver um servidor na 4173, ele é reutilizado — rode `npm run build` antes para testar o código atual.
 
-## Última execução (08/11/2026, Windows 10, Node 26, Chrome)
+## Última execução — redesign v2.1 (09/11/2026, Windows 10, Node 26, Chrome)
+
+| Suíte | Resultado |
+|---|---|
+| Vitest (unitários + componentes) | **59/59 aprovados** |
+| Playwright (E2E no build de produção) | **17/17 aprovados** na mesma rodada (novo: "letra extra grande em 320px: nada transborda") |
+| axe WCAG 2.2 AA | 0 violações sérias/críticas em 20 telas + alto contraste |
+| `tsc --noEmit` / `vite build` | sem erros · pré-cache de 76 arquivos (~2,8 MB, inclui fontes e ilustrações) |
+
+Testes ajustados ao novo visual (sem mudar o que é verificado): espera pela navegação "Atalhos do dia" no lugar do título "Meu Advento"; contagem lida no novo cabeçalho; frase do dia acessada pela aba "Frase"; novo teste de abas (seleção, `#noite` no endereço, navegação por setas).
+
+## Execução anterior (08/11/2026, Windows 10, Node 26, Chrome)
 
 | Suíte | Resultado |
 |---|---|

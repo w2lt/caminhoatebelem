@@ -22,14 +22,14 @@ export function EventLine({ e, highlight }: { e: AgendaEvent; highlight?: boolea
   return (
     <Link
       to={`/agenda/${e.id}`}
-      className={cx('block rounded-2xl border p-3 hover:border-roxo', highlight ? 'border-2 border-roxo bg-roxo-claro' : 'border-borda bg-papel', e.status === 'cancelado' && 'opacity-70')}
+      className={cx('block rounded-3xl p-4 shadow-[var(--shadow-suave)] active:scale-[0.99]', highlight ? 'bg-lavanda-claro ring-2 ring-roxo' : 'bg-papel', e.status === 'cancelado' && 'opacity-70')}
     >
       <div className="flex flex-wrap items-center gap-2">
         <Badge tone={e.category === 'missa-natal' ? 'dourado' : 'roxo'}>{cat}</Badge>
         {e.status === 'realizado' && <Badge tone="verde">Realizado</Badge>}
         {e.status === 'cancelado' && <Badge tone="cinza">Cancelado</Badge>}
       </div>
-      <p className={cx('mt-1 text-lg font-semibold', e.status === 'cancelado' && 'line-through')}>{e.title}</p>
+      <p className={cx('mt-1 text-lg font-bold', e.status === 'cancelado' && 'line-through')}>{e.title}</p>
       <p className="mt-0.5 flex flex-wrap items-center gap-x-3 text-tinta-suave">
         <span className="inline-flex items-center gap-1">
           <Clock aria-hidden className="size-4" /> {tinyDate(e.date)}

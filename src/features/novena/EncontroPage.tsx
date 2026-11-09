@@ -13,7 +13,7 @@ import { useToast } from '../../ui/feedback';
 
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-borda bg-papel p-4" aria-labelledby={`passo-${n}`}>
+    <section className="rounded-3xl bg-papel p-5 shadow-[var(--shadow-suave)]" aria-labelledby={`passo-${n}`}>
       <h2 id={`passo-${n}`} className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-roxo">
         <span className="grid size-7 place-items-center rounded-full bg-roxo text-white">{n}</span>
         {title}
@@ -63,7 +63,7 @@ export function EncontroPage() {
       </Step>
       <Step n={5} title="Reflexão">
         <p>{enc.reflexao}</p>
-        <p className="mt-3 font-sans font-semibold">Para conversar ou meditar:</p>
+        <p className="mt-3 font-sans font-bold">Para conversar ou meditar:</p>
         <ul className="list-disc pl-5">
           {enc.perguntas.map((p) => (
             <li key={p}>{p}</li>
@@ -119,7 +119,7 @@ export function EncontroPage() {
         {cantico ? (
           <p>
             Sugestão: <strong>{cantico.titulo}</strong>.{' '}
-            <Link to={`/canticos#${cantico.id}`} className="inline-flex items-center gap-1 font-sans font-semibold text-roxo underline">
+            <Link to={`/canticos#${cantico.id}`} className="inline-flex items-center gap-1 font-sans font-bold text-roxo underline">
               <Music aria-hidden className="size-4" /> Ver no cancioneiro
             </Link>
           </p>
@@ -136,16 +136,16 @@ export function EncontroPage() {
       </Card>
       <ReviewNote show={enc.revisao === 'pendente'} />
 
-      <nav aria-label="Outros encontros" className="flex justify-between gap-2">
+      <nav aria-label="Outros encontros" className="flex flex-wrap justify-between gap-2">
         {prev ? (
-          <Link to={`/novena/${prev.numero}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-semibold text-roxo">
+          <Link to={`/novena/${prev.numero}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-bold text-roxo">
             <ChevronLeft aria-hidden className="size-5" /> {prev.numero}º encontro
           </Link>
         ) : (
           <span />
         )}
         {next && (
-          <Link to={`/novena/${next.numero}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-semibold text-roxo">
+          <Link to={`/novena/${next.numero}`} className="inline-flex min-h-12 items-center gap-1 px-2 font-bold text-roxo">
             {next.numero}º encontro <ChevronRight aria-hidden className="size-5" />
           </Link>
         )}

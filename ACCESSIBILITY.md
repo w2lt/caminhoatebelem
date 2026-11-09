@@ -18,7 +18,10 @@ Público inclui pessoas idosas e com pouca familiaridade com tecnologia. Princí
 | Sem pressão | Sem anúncios, sem rankings, marcações opcionais |
 | PDF | Visualização em páginas com rótulo "Página X de Y" e modo **Ver como texto** (texto extraído, ampliável) |
 | Cartões de imagem | `alt` descritivo; o texto também pode ser compartilhado como texto |
-| Responsividade | Testado sem rolagem horizontal a 320 px |
+| Responsividade | Testado sem rolagem horizontal a 320 px, inclusive com letra "Extra grande" (19 telas) |
+| Página do dia em abas | Padrão ARIA de abas (`tablist`/`tab`/`tabpanel`), setas ← → e Home/End, aba marcada anunciada como "(feito)"; rótulos das abas limitados pela largura da tela para nunca cortar |
+| Nome acessível = texto visível (2.5.3) | Botões e links com rótulo próprio contêm o texto visível (ex.: dias da semana, encontros do Círculo) |
+| Ilustrações | Imagens com `alt` descritivo quando informativas; decorativas com `alt=""`; no alto contraste o céu ilustrado é removido dos cabeçalhos |
 
 ## Testes automatizados
 

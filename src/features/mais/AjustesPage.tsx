@@ -14,13 +14,13 @@ export function AjustesPage() {
       <PageHeader title="Tamanho do texto e contraste" back="/mais" />
       <Card>
         <fieldset>
-          <legend className="font-semibold">Tamanho do texto</legend>
+          <legend className="font-bold">Tamanho do texto</legend>
           <p className="text-sm text-tinta-suave">Você também pode mudar durante a leitura, pelos botões A− e A+.</p>
           <div className="mt-3 grid gap-2">
             {SIZES.map((f) => (
-              <label key={f} className={cx('flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 px-3', s.fontSize === f ? 'border-roxo bg-roxo-claro' : 'border-borda')}>
+              <label key={f} className={cx('flex min-h-16 cursor-pointer items-center gap-3 rounded-2xl px-4 ring-[1.5px] ring-inset', s.fontSize === f ? 'bg-lavanda-claro ring-roxo' : 'bg-papel ring-borda')}>
                 <input type="radio" name="fonte" checked={s.fontSize === f} onChange={() => setSetting('fontSize', f)} className="size-5 accent-[#60377D]" />
-                <span className={cx('font-semibold', PX[f])}>{FONT_LABEL[f]}</span>
+                <span className={cx('font-bold', PX[f])}>{FONT_LABEL[f]}</span>
               </label>
             ))}
           </div>

@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const BASE = process.argv[2] || 'https://caminhoatebelem.warleson-dbrandao.workers.dev';
-const OUT = 'docs/apresentacao/telas';
+const OUT = process.argv[3] || 'docs/apresentacao/telas';
 mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch({ channel: 'chrome' });
@@ -27,7 +27,7 @@ await page.getByRole('button', { name: 'Continuar' }).click();
 const cont = page.getByRole('button', { name: 'Continuar' });
 if (await cont.isVisible().catch(() => false)) await cont.click();
 await page.getByRole('button', { name: 'Iniciar a jornada' }).click();
-await page.getByRole('heading', { name: 'Meu Advento' }).waitFor();
+await page.getByRole('navigation', { name: 'Atalhos do dia' }).waitFor();
 
 async function shot(path, name, prep) {
   await page.goto(`${BASE}${path}`);
@@ -46,10 +46,13 @@ await shot('/novena/5', 'encontro');
 await shot('/circulo', 'circulo');
 await shot('/coroa', 'coroa');
 await shot('/mais', 'mais');
+await shot('/rezar', 'rezar');
+await shot('/presepio', 'presepio');
+await shot('/agenda/novo', 'agenda-form');
 
 // Cartão de compartilhamento gerado pelo app (1080×1350)
-await page.goto(`${BASE}/dia/2026-12-13`);
-await page.getByRole('button', { name: 'Compartilhar' }).nth(2).click();
+await page.goto(`${BASE}/dia/2026-12-13#frase`);
+await page.getByRole('button', { name: 'Compartilhar' }).first().click();
 const dialog = page.getByRole('dialog', { name: 'Compartilhar' });
 await dialog.getByText('4:5', { exact: true }).click();
 const img = dialog.getByRole('img', { name: /Cartão/ });

@@ -21,7 +21,7 @@ export function PrivacidadePage() {
           </p>
           <p>
             <strong>Risco de perda:</strong> se você limpar os dados do navegador, desinstalar o app ou trocar de aparelho, os dados locais são apagados. Faça backups regularmente em{' '}
-            <Link to="/backup" className="font-semibold text-roxo underline">
+            <Link to="/backup" className="font-bold text-roxo underline">
               Mais → Backup
             </Link>
             .

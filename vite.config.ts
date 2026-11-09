@@ -37,7 +37,7 @@ export default defineConfig({
       workbox: {
         // Pré-cache de TODO o app (inclui o leitor de PDF pdf.js, cujo worker é .mjs):
         // orações, liturgia, novena e conteúdos catequéticos funcionam offline após o 1º acesso.
-        globPatterns: ['**/*.{js,mjs,css,html,svg,png,ico,webmanifest,woff2}'],
+        globPatterns: ['**/*.{js,mjs,css,html,svg,png,webp,ico,webmanifest,woff2}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: '/index.html',
         // A API de ativação nunca é servida do cache.

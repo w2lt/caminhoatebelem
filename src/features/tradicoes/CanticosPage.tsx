@@ -48,7 +48,7 @@ export function CanticosPage() {
             type="button"
             aria-pressed={filtro === k}
             onClick={() => setFiltro(k)}
-            className={cx('min-h-11 rounded-full border-2 px-3 text-sm font-semibold', filtro === k ? 'border-roxo bg-roxo text-white' : 'border-borda bg-papel')}
+            className={cx('min-h-11 rounded-full px-4 text-sm font-bold ring-[1.5px] ring-inset', filtro === k ? 'bg-roxo text-white ring-roxo' : 'bg-papel text-lavanda-texto ring-lavanda')}
           >
             {v}
           </button>
@@ -67,7 +67,7 @@ export function CanticosPage() {
           <Card key={c.id} as="article" aria-labelledby={`c-${c.id}`}>
             <div id={c.id} className="scroll-mt-4" />
             <div className="flex items-start gap-2">
-              <h2 id={`c-${c.id}`} className="flex-1 font-serif text-lg font-bold">
+              <h2 id={`c-${c.id}`} className="flex-1 font-display text-2xl leading-tight">
                 {c.titulo}
               </h2>
               <button
@@ -88,7 +88,7 @@ export function CanticosPage() {
               ))}
             </div>
             <p className="mt-2">{c.descricao}</p>
-            {c.letra && <p className="leitura mt-3 whitespace-pre-line rounded-xl bg-creme p-3">{c.letra}</p>}
+            {c.letra && <p className="leitura mt-3 whitespace-pre-line rounded-2xl bg-creme p-4 italic">{c.letra}</p>}
             <p className="mt-2 text-sm text-tinta-suave">
               {DIREITOS[c.direitos]} · {c.fonte}
             </p>

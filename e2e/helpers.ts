@@ -9,7 +9,7 @@ export async function onboard(page: Page, hoje = '2026-12-13') {
   const cont = page.getByRole('button', { name: 'Continuar' });
   if (await cont.isVisible().catch(() => false)) await cont.click();
   await page.getByRole('button', { name: 'Iniciar a jornada' }).click();
-  await expect(page.getByRole('heading', { name: 'Meu Advento' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Atalhos do dia' })).toBeVisible();
 }
 
 /** Gera um PDF mínimo e válido (1 página com texto) para testar a importação. */

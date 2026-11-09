@@ -33,7 +33,7 @@ export function MissasPage() {
       </Card>
 
       <section aria-labelledby="adicionar">
-        <h2 id="adicionar" className="mb-2 font-semibold">
+        <h2 id="adicionar" className="mb-2 font-bold">
           Adicionar celebração
         </h2>
         <div className="grid grid-cols-2 gap-2">
@@ -41,19 +41,19 @@ export function MissasPage() {
             <Link
               key={tipo}
               to={`/agenda/novo?categoria=missa-natal&missa=${tipo}&data=${data}`}
-              className="flex min-h-14 items-center gap-2 rounded-xl border-2 border-dourado bg-dourado-claro p-2 text-sm font-semibold text-dourado-texto"
+              className="flex min-h-16 items-center gap-2 rounded-3xl bg-dourado-claro p-3 text-sm font-extrabold text-dourado-texto shadow-[var(--shadow-suave)]"
             >
               <Plus aria-hidden className="size-5 shrink-0" /> {MASS_TYPES[tipo].replace(/ \(.*\)$/, '')}
             </Link>
           ))}
-          <Link to="/agenda/novo?categoria=missa-natal&missa=outra" className="col-span-2 flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-borda p-2 font-semibold text-roxo">
+          <Link to="/agenda/novo?categoria=missa-natal&missa=outra" className="col-span-2 flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full bg-papel p-2 font-bold text-roxo ring-[1.5px] ring-inset ring-lavanda">
             <Plus aria-hidden className="size-5" /> Outra celebração
           </Link>
         </div>
       </section>
 
       <section aria-labelledby="cadastradas">
-        <h2 id="cadastradas" className="mb-2 font-serif text-xl font-bold text-roxo">
+        <h2 id="cadastradas" className="mb-2 font-display text-[1.75rem] leading-tight text-roxo">
           Celebrações cadastradas
         </h2>
         {lista.length === 0 ? (

@@ -79,7 +79,7 @@ export function CirculoPage() {
       <PageHeader title="Novena do Círculo Bíblico" subtitle="Organize os encontros da novena da sua comunidade." back="/novena" />
 
       <Card>
-        <h2 className="mb-3 font-serif text-lg font-bold text-roxo">Grupo</h2>
+        <h2 className="mb-3 font-display text-[1.625rem] leading-tight text-roxo">Grupo</h2>
         <div className="grid gap-3">
           <TextField label="Nome do Círculo Bíblico" value={form.name} maxLength={120} onChange={(e) => set({ name: e.target.value })} placeholder="Ex.: Círculo Sagrada Família" />
           <TextField label="Comunidade / paróquia" value={form.community} maxLength={120} onChange={(e) => set({ community: e.target.value })} />
@@ -89,16 +89,16 @@ export function CirculoPage() {
 
       <section aria-labelledby="encontros-circulo">
         <div className="mb-2 flex items-end justify-between">
-          <h2 id="encontros-circulo" className="font-serif text-xl font-bold text-roxo">
+          <h2 id="encontros-circulo" className="font-display text-[1.75rem] leading-tight text-roxo">
             Encontros
           </h2>
-          <p className="font-semibold text-verde">{feitos} de 9 realizados</p>
+          <p className="font-bold text-verde">{feitos} de 9 realizados</p>
         </div>
         <ol className="grid gap-2">
           {form.meetings.map((m) => {
             const isOpen = open === m.number;
             return (
-              <li key={m.number} className={cx('rounded-2xl border bg-papel', m.date === today ? 'border-2 border-roxo' : 'border-borda')}>
+              <li key={m.number} className={cx('rounded-3xl bg-papel shadow-[var(--shadow-suave)]', m.date === today && 'ring-2 ring-roxo')}>
                 <div className="flex items-center gap-2 p-2">
                   <button
                     type="button"
@@ -108,13 +108,13 @@ export function CirculoPage() {
                       setMeeting(m.number, { done: !m.done });
                       if (saved) await toggleMeetingDone(m.number);
                     }}
-                    className={cx('grid size-11 shrink-0 place-items-center rounded-full border-2 font-bold', m.done ? 'border-verde bg-verde text-white' : 'border-roxo text-roxo')}
+                    className={cx('grid size-12 shrink-0 place-items-center rounded-full font-extrabold', m.done ? 'bg-verde text-white' : 'bg-lavanda-claro text-roxo')}
                   >
                     {m.done ? <Check aria-hidden className="size-6" /> : m.number}
                   </button>
                   <button type="button" aria-expanded={isOpen} aria-controls={`enc-${m.number}`} onClick={() => setOpen(isOpen ? null : m.number)} className="flex min-h-12 flex-1 items-center gap-2 text-left">
                     <span className="flex-1">
-                      <span className="block font-semibold">{m.number}º encontro</span>
+                      <span className="block font-bold">{m.number}º encontro</span>
                       <span className="block text-sm text-tinta-suave">
                         {m.date ? tinyDate(m.date) : 'Sem data'}
                         {m.time && ` · ${m.time}`}
@@ -173,7 +173,7 @@ export function CirculoPage() {
       </div>
 
       <Card aria-labelledby="pdf-titulo">
-        <h2 id="pdf-titulo" className="flex items-center gap-2 font-serif text-lg font-bold text-roxo">
+        <h2 id="pdf-titulo" className="flex items-center gap-2 font-display text-[1.625rem] leading-tight text-roxo">
           <FileText aria-hidden className="size-5" /> PDF da novena da comunidade
         </h2>
         <p className="mt-1 text-tinta-suave">Importe o PDF que sua comunidade usa. Ele fica guardado neste celular e abre sem internet. Tamanho máximo: {MAX_PDF_BYTES / 1024 / 1024} MB.</p>
@@ -182,15 +182,15 @@ export function CirculoPage() {
           {busy ? 'Verificando o PDF…' : 'Importar PDF'}
         </Button>
         {pdfError && (
-          <p role="alert" className="mt-2 rounded-xl bg-rosa-claro p-3 font-medium text-erro">
+          <p role="alert" className="mt-2 rounded-2xl bg-rosa-claro p-4 font-bold text-erro">
             {pdfError}
           </p>
         )}
         <div className="mt-3 grid gap-2">
           {pdfs?.length === 0 && <EmptyState icon={FileText} title="Nenhum PDF importado ainda." />}
           {pdfs?.map((p) => (
-            <div key={p.id} className="flex items-center gap-2 rounded-xl border border-borda p-2">
-              <Link to={`/circulo/pdf/${p.id}`} className="flex min-h-12 flex-1 items-center gap-2 font-semibold text-roxo">
+            <div key={p.id} className="flex items-center gap-2 rounded-2xl bg-creme p-2">
+              <Link to={`/circulo/pdf/${p.id}`} className="flex min-h-12 flex-1 items-center gap-2 font-bold text-roxo">
                 <FileText aria-hidden className="size-5 shrink-0" />
                 <span className="min-w-0">
                   <span className="block truncate">{p.name}</span>

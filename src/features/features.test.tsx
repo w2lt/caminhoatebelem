@@ -26,7 +26,9 @@ describe('tela do dia (conteúdo diário)', () => {
     renderAt('/dia/2026-12-08', '/dia/:data', <DiaPage />);
     expect(await screen.findByRole('heading', { name: 'O sim de Maria', level: 1 })).toBeInTheDocument();
     expect(screen.getByText(/Maria, cheia de graça, contigo quero dizer/)).toBeInTheDocument();
-    expect(screen.getByText(/Um sim confiante pode abrir caminho/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('tab', { name: 'Frase' }));
+    expect(await screen.findByText(/Um sim confiante pode abrir caminho/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('tab', { name: 'Manhã' }));
     const btn = screen.getAllByRole('button', { name: 'Marcar como rezada' })[0]!;
     await userEvent.click(btn);
     await waitFor(async () => expect(await db.progress.get('manha:2026-12-08')).toBeDefined());
