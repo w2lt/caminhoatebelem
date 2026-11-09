@@ -72,8 +72,8 @@ export function BoasVindasPage() {
 
       {step === 2 && (
         <div>
-          <h1 className="font-display text-[2rem] leading-tight text-roxo">Coloque o app na tela inicial</h1>
-          <p className="mb-4 mt-1 text-tinta-suave">Assim ele abre como um aplicativo e funciona sem internet.</p>
+          <h1 className="font-display text-[2rem] leading-tight text-roxo">Crie o ícone do app</h1>
+          <p className="mb-4 mt-1 text-tinta-suave">Na tela inicial do celular ou na área de trabalho do computador. Assim ele abre com um toque e funciona sem internet.</p>
           <InstallSteps />
           <Button full className="mt-6" onClick={() => setStep(3)}>
             Continuar <ChevronRight aria-hidden className="size-5" />

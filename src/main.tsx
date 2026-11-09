@@ -15,6 +15,10 @@ import '@fontsource/nunito-sans/latin-800.css';
 import './index.css';
 import { App } from './app/App';
 import { requestPersistence } from './db/database';
+import { initInstallPrompt } from './services/install';
+
+// Guarda o convite de instalação do navegador (ícone na tela inicial / área de trabalho).
+initInstallPrompt();
 
 // Pede armazenamento persistente (reduz o risco de o navegador apagar os dados sozinho).
 void requestPersistence();

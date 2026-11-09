@@ -1,12 +1,42 @@
-import { Smartphone, Apple, LifeBuoy, WifiOff, DatabaseBackup } from 'lucide-react';
-import { capabilities } from '../../services/reminders';
-import { Card, ExternalLink, PageHeader } from '../../ui/kit';
+import { Smartphone, Apple, LifeBuoy, WifiOff, DatabaseBackup, Monitor, Download, CheckCircle2 } from 'lucide-react';
+import { promptInstall, useInstallState } from '../../services/install';
+import { Button, Card, ExternalLink, PageHeader, cx } from '../../ui/kit';
+import { useToast } from '../../ui/feedback';
 
 export const SUPPORT_URL = import.meta.env.VITE_SUPPORT_URL || '';
+
+/** Botão grande que abre a janela "Instalar" do navegador (Android e computador). */
+export function InstallButton({ className }: { className?: string }) {
+  const state = useInstallState();
+  const toast = useToast();
+  if (state === 'instalado') {
+    return (
+      <Card className={cx('bg-verde-claro', className)}>
+        <p className="flex items-center gap-2 font-bold text-verde">
+          <CheckCircle2 aria-hidden className="size-5 shrink-0" /> O app já está instalado. Abra pelo ícone com a estrela dourada.
+        </p>
+      </Card>
+    );
+  }
+  if (state !== 'disponivel') return null;
+  return (
+    <Button
+      full
+      icon={Download}
+      className={className}
+      onClick={async () => {
+        if (await promptInstall()) toast('Pronto! O ícone do Caminho até Belém foi criado.');
+      }}
+    >
+      Instalar e criar o ícone
+    </Button>
+  );
+}
 
 export function InstallSteps() {
   return (
     <div className="grid gap-3">
+      <InstallButton />
       <Card aria-labelledby="android">
         <h2 id="android" className="flex items-center gap-2 font-display text-[1.625rem] leading-tight text-roxo">
           <Smartphone aria-hidden className="size-5" /> Android (Chrome)
@@ -39,20 +69,26 @@ export function InstallSteps() {
           </li>
         </ol>
       </Card>
+      <Card aria-labelledby="computador">
+        <h2 id="computador" className="flex items-center gap-2 font-display text-[1.625rem] leading-tight text-roxo">
+          <Monitor aria-hidden className="size-5" /> Computador (Chrome ou Edge)
+        </h2>
+        <ol className="mt-2 list-decimal space-y-1 pl-6">
+          <li>Abra o link do app no <strong>Chrome</strong> ou no <strong>Edge</strong>.</li>
+          <li>
+            Clique no ícone de <strong>instalar</strong> no fim da barra de endereço (monitor com seta) ou no menu <strong>⋮</strong> → <strong>Instalar Caminho até Belém</strong>.
+          </li>
+          <li>Confirme. O ícone aparece na <strong>área de trabalho</strong> e no menu Iniciar.</li>
+        </ol>
+      </Card>
     </div>
   );
 }
 
 export function AjudaPage() {
-  const cap = capabilities();
   return (
     <div className="space-y-4">
       <PageHeader title="Instalar e ajuda" back="/mais" />
-      {cap.standalone && (
-        <Card className="bg-verde-claro">
-          <p className="font-bold text-verde">O app já está instalado neste aparelho.</p>
-        </Card>
-      )}
       <InstallSteps />
       <Card>
         <h2 className="flex items-center gap-2 font-bold">

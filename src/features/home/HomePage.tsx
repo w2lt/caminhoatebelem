@@ -11,6 +11,7 @@ import { greeting, periodOfDay, useToday } from '../../lib/hooks';
 import { Eyebrow, MenuLink, cx } from '../../ui/kit';
 import { EventLine, LiturgicalColor } from '../shared';
 import { Velas } from '../shared-visuals';
+import { ConviteInstalar } from './ConviteInstalar';
 
 export function HomePage() {
   const today = useToday();
@@ -116,6 +117,8 @@ export function HomePage() {
           </Link>
         </section>
       )}
+
+      <ConviteInstalar />
 
       {/* Atalhos: liturgia, novena, agenda */}
       <nav aria-label="Atalhos do dia" className="grid grid-cols-3 gap-2">

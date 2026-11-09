@@ -12,6 +12,10 @@ npm run test:e2e
 
 O E2E faz o build de produção, sobe `vite preview` na porta 4173 e usa o **Google Chrome instalado** (`channel: 'chrome'`) emulando um Pixel 5 em pt-BR / America/Sao_Paulo. Se já houver um servidor na 4173, ele é reutilizado — rode `npm run build` antes para testar o código atual.
 
+## Instalação com ícone (09/11/2026)
+
+Novo: botão "Instalar e criar o ícone" (boas-vindas, Instalar e ajuda) e convite na tela inicial, usando o evento `beforeinstallprompt` do Chrome/Edge (`src/services/install.ts`). Vitest **59/59** · Playwright **18/18** (novo: "instalar: convite cria o ícone pela janela do navegador", com o evento simulado). A criação real do ícone é feita pelo navegador e ainda precisa ser conferida em aparelho (Android, iPhone, Windows).
+
 ## Última execução — redesign v2.1 (09/11/2026, Windows 10, Node 26, Chrome)
 
 | Suíte | Resultado |
@@ -59,6 +63,7 @@ Testes ajustados ao novo visual (sem mudar o que é verificado): espera pela nav
 Não foram feitos e **não devem ser considerados aprovados**:
 
 - [ ] Instalação real: Android (Chrome) e iPhone (Safari → Adicionar à Tela de Início), abrir pelo ícone, splash.
+- [ ] Botão "Instalar" no Android e no Windows (Chrome/Edge): conferir o ícone na tela inicial / área de trabalho.
 - [ ] Offline em aparelho real (modo avião) após a 1ª abertura.
 - [ ] Compartilhar cartão como imagem pelo menu nativo (WhatsApp, Instagram) no Android e no iPhone.
 - [ ] Importar `.ics` no Google Agenda e no Calendário do iPhone; conferir alarmes e repetição diária.

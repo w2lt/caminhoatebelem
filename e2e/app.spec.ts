@@ -226,6 +226,27 @@ test.describe('PWA, offline, responsividade e acessibilidade', () => {
     expect(sw).toBe(true);
   });
 
+  test('instalar: convite cria o ícone pela janela do navegador', async ({ page }) => {
+    await onboard(page, '2026-12-13');
+    await expect(page.getByRole('heading', { name: 'Crie o ícone do app' })).toHaveCount(0);
+    // Simula o evento que o Chrome/Edge disparam quando o app pode ser instalado.
+    await page.evaluate(() => {
+      const ev = new Event('beforeinstallprompt') as Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> };
+      ev.prompt = async () => {
+        (window as unknown as { __prompted: boolean }).__prompted = true;
+      };
+      ev.userChoice = Promise.resolve({ outcome: 'accepted' });
+      window.dispatchEvent(ev);
+    });
+    await expect(page.getByRole('heading', { name: 'Crie o ícone do app' })).toBeVisible();
+    await page.getByRole('button', { name: 'Instalar', exact: true }).click();
+    await expect(page.getByText('Pronto! O ícone do Caminho até Belém foi criado.')).toBeVisible();
+    expect(await page.evaluate(() => (window as unknown as { __prompted?: boolean }).__prompted)).toBe(true);
+    await expect(page.getByRole('heading', { name: 'Crie o ícone do app' })).toHaveCount(0);
+    await page.goto('/ajuda');
+    await expect(page.getByRole('heading', { name: /Computador/ })).toBeVisible();
+  });
+
   test('funciona offline após o primeiro acesso', async ({ page, context }) => {
     await onboard(page, '2026-12-08');
     await page.evaluate(async () => {
