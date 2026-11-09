@@ -68,6 +68,11 @@ body {
   border-radius: 6px;
 }
 
+/* O título recebe foco ao trocar de tela (para leitores de tela); não precisa de contorno. */
+h1[tabindex='-1']:focus {
+  outline: none;
+}
+
 /* Texto de leitura (orações e reflexões): serifado e confortável. */
 .leitura {
   font-family: var(--font-serif);

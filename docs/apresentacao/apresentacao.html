@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Caminho até Belém — Apresentação à Paróquia</title>
+<style>
+  @page { size: 297mm 210mm; margin: 0; }
+  :root {
+    --roxo: #60377D; --roxo-escuro: #3B1F52; --roxo-claro: #EFE6F4;
+    --rosa: #D99AB5; --rosa-texto: #8C3A60; --dourado: #D7B15B; --dourado-texto: #7A5A12;
+    --creme: #F8F3E9; --papel: #FFFDF8; --verde: #476D57; --tinta: #2B2230; --suave: #5A4F60; --borda: #E2D8C8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 297mm; height: 210mm; position: relative; overflow: hidden; background: var(--creme); padding: 16mm 18mm 14mm; page-break-after: always; display: flex; flex-direction: column; }
+  .slide:last-child { page-break-after: auto; }
+  h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; color: var(--roxo); }
+  h2 { font-size: 30pt; line-height: 1.1; }
+  .kicker { font-size: 10.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dourado-texto); margin-bottom: 3mm; }
+  .lead { font-size: 13pt; color: var(--suave); margin-top: 3mm; max-width: 150mm; line-height: 1.45; }
+  .row { display: flex; gap: 10mm; flex: 1; min-height: 0; margin-top: 7mm; }
+  .col { flex: 1; min-width: 0; }
+  .phones { display: flex; gap: 6mm; align-items: flex-start; }
+  .phone { height: 128mm; border-radius: 7mm; border: 2.2mm solid #2B2230; box-shadow: 0 3mm 8mm rgba(59,31,82,.25); background: #fff; }
+  .phone.sm { height: 118mm; }
+  .card { background: var(--papel); border: .3mm solid var(--borda); border-radius: 4mm; padding: 4.5mm 5mm; }
+  .list { display: grid; gap: 3.2mm; }
+  .item { display: flex; gap: 3.5mm; align-items: flex-start; }
+  .dot { flex: 0 0 9mm; height: 9mm; border-radius: 50%; background: var(--roxo-claro); color: var(--roxo); font-weight: 700; display: grid; place-items: center; font-size: 11pt; }
+  .item b { display: block; font-size: 12.5pt; color: var(--tinta); }
+  .item span { display: block; font-size: 10.5pt; color: var(--suave); line-height: 1.4; margin-top: .6mm; }
+  .footer { position: absolute; left: 18mm; right: 18mm; bottom: 7mm; display: flex; justify-content: space-between; font-size: 8.5pt; color: var(--suave); }
+  .footer i { font-family: Georgia, serif; color: var(--dourado-texto); }
+  .tag { display: inline-block; padding: .8mm 3mm; border-radius: 10mm; font-size: 9pt; font-weight: 600; }
+  .t-roxo { background: var(--roxo-claro); color: var(--roxo); }
+  .t-verde { background: #E3EDE6; color: var(--verde); }
+  .t-rosa { background: #F9E8EF; color: var(--rosa-texto); }
+  .t-dourado { background: #F6ECD2; color: var(--dourado-texto); }
+
+  /* Capa */
+  .capa { background: linear-gradient(160deg, #60377D 0%, #3B1F52 100%); color: #fff; padding: 0; flex-direction: row; }
+  .capa .texto { flex: 1; padding: 26mm 0 0 22mm; }
+  .capa img.logo { width: 26mm; height: 26mm; }
+  .capa h1 { color: #fff; font-size: 44pt; margin-top: 8mm; line-height: 1.05; }
+  .capa .slogan { font-family: Georgia, serif; font-size: 17pt; color: #F8F3E9; margin-top: 5mm; max-width: 135mm; line-height: 1.35; }
+  .capa .sub { margin-top: 14mm; font-size: 12pt; color: var(--dourado); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .capa .sub2 { margin-top: 2mm; font-size: 11pt; color: rgba(255,255,255,.85); }
+  .capa .moldura { position: absolute; inset: 8mm; border: .5mm solid rgba(215,177,91,.5); pointer-events: none; }
+  .capa .tel { padding: 22mm 26mm 0 0; }
+  .capa .phone { height: 165mm; border-color: #1c1024; }
+
+  /* Números */
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin-top: 8mm; }
+  .num { background: var(--papel); border: .3mm solid var(--borda); border-radius: 4mm; padding: 5mm; text-align: center; }
+  .num strong { display: block; font-family: Georgia, serif; font-size: 30pt; color: var(--roxo); line-height: 1; }
+  .num span { display: block; margin-top: 2mm; font-size: 10.5pt; color: var(--suave); }
+
+  .quote { margin-top: 7mm; padding: 5mm 6mm; border-left: 1.5mm solid var(--dourado); background: var(--papel); font-family: Georgia, serif; font-size: 13pt; color: var(--tinta); line-height: 1.5; border-radius: 0 3mm 3mm 0; }
+  .cartao { height: 112mm; border-radius: 3mm; box-shadow: 0 3mm 8mm rgba(59,31,82,.25); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 7mm; }
+  .grid2 .card h3 { font-size: 15pt; margin-bottom: 2mm; }
+  .grid2 .card p { font-size: 10.8pt; color: var(--suave); line-height: 1.45; }
+  .passos { counter-reset: p; display: grid; gap: 7mm; }
+  .passos li { list-style: none; counter-increment: p; display: flex; gap: 4mm; align-items: flex-start; font-size: 14pt; line-height: 1.45; }
+  .passos li::before { content: counter(p); flex: 0 0 9mm; height: 9mm; border-radius: 50%; background: var(--roxo); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 11pt; }
+  .acesso { background: var(--roxo); color: #fff; border-radius: 4mm; padding: 6mm; }
+  .acesso h3 { color: var(--dourado); font-size: 15pt; }
+  .acesso p { font-size: 11pt; line-height: 1.5; margin-top: 2mm; color: rgba(255,255,255,.92); }
+  .acesso .url { font-family: Consolas, monospace; font-size: 10.5pt; background: rgba(255,255,255,.12); padding: 2mm 3mm; border-radius: 2mm; margin-top: 3mm; white-space: nowrap; font-size: 9.6pt; color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="slide capa">
+  <div class="moldura"></div>
+  <div class="texto">
+    <img class="logo" src="../../public/icon.svg" alt="" />
+    <h1>Caminho<br />até Belém</h1>
+    <p class="slogan">Uma jornada de fé, oração e esperança para celebrar o verdadeiro Natal.</p>
+    <p class="sub">Apresentação à Paróquia</p>
+    <p class="sub2">Aplicativo para o Advento e o Natal de 2026</p>
+  </div>
+  <div class="tel"><img class="phone" src="telas/inicio.png" alt="Tela inicial do aplicativo" /></div>
+</section>
+
+<!-- 2. PROPÓSITO -->
+<section class="slide">
+  <p class="kicker">O propósito</p>
+  <h2>Ajudar cada fiel a preparar o coração para o Natal</h2>
+  <p class="lead">O Advento muitas vezes é engolido pela correria das compras e das festas. O Caminho até Belém coloca no celular de cada pessoa um roteiro diário de oração, centrado em Jesus Cristo, que une a vida pessoal, a família e a comunidade.</p>
+  <div class="nums">
+    <div class="num"><strong>27</strong><span>dias de jornada, do 1º Domingo do Advento ao Natal</span></div>
+    <div class="num"><strong>9</strong><span>encontros da Novena de Natal (16 a 24 de dezembro)</span></div>
+    <div class="num"><strong>0</strong><span>cadastros ou senhas: basta abrir e rezar</span></div>
+    <div class="num"><strong>100%</strong><span>do conteúdo de oração funciona sem internet</span></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Para quem</h3><p>Jovens, adultos e idosos; famílias; participantes dos Círculos Bíblicos e grupos de oração; catequistas e agentes de pastoral.</p></div>
+    <div class="card"><h3>Como se usa</h3><p>Pelo celular (Android ou iPhone), instalado na tela inicial como um aplicativo comum. Letras grandes, botões grandes e linguagem simples.</p></div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>2</span></div>
+</section>
+
+<!-- 3. UM DIA NO CAMINHO -->
+<section class="slide">
+  <p class="kicker">A jornada diária</p>
+  <h2>Um dia no Caminho até Belém</h2>
+  <div class="row">
+    <div class="col">
+      <div class="list">
+        <div class="item"><div class="dot">1</div><div><b>Oração da manhã</b><span>Agradecer e entregar o dia a Deus, com o tema espiritual do dia.</span></div></div>
+        <div class="item"><div class="dot">2</div><div><b>Liturgia do dia</b><span>Celebração, cor litúrgica e as leituras da Missa.</span></div></div>
+        <div class="item"><div class="dot">3</div><div><b>Reflexão e frase do dia</b><span>Texto curto, ligado ao Evangelho, e uma frase de esperança.</span></div></div>
+        <div class="item"><div class="dot">4</div><div><b>Gesto concreto</b><span>Uma ação de caridade, reconciliação ou partilha.</span></div></div>
+        <div class="item"><div class="dot">5</div><div><b>Oração da noite</b><span>Agradecer, rever o dia, pedir perdão e descansar em Deus.</span></div></div>
+      </div>
+      <p class="quote">Cada um dos 27 dias tem textos próprios, inspirados nas leituras daquele dia — nada é repetido.</p>
+    </div>
+    <div class="phones">
+      <img class="phone" src="telas/inicio.png" alt="" />
+      <img class="phone" src="telas/oracao.png" alt="" />
+    </div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>3</span></div>
+</section>
+
+<!-- 4. LITURGIA E NOVENA -->
+<section class="slide">
+  <p class="kicker">Liturgia e Novena de Natal</p>
+  <h2>Fiel à Palavra e ao calendário da Igreja</h2>
+  <div class="row">
+    <div class="col">
+      <div class="list">
+        <div class="item"><div class="dot">✓</div><div><b>Calendário litúrgico automático</b><span>Domingos do Advento, Ano B, Domingo Gaudete, solenidade da Imaculada, festas de Santo André e de Nossa Senhora de Guadalupe, e as três Missas do Natal.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Leituras pelo Lecionário</b><span>O app mostra as referências bíblicas de cada dia. O texto oficial é lido na Bíblia ou nas fontes oficiais (CNBB, Vatican News), respeitando os direitos da tradução litúrgica.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Novena de Natal em 9 encontros</b><span>Acolhida, sinal da cruz, oração inicial, leitura bíblica, reflexão, preces, gesto concreto, oração final e cântico. Para rezar sozinho ou em família.</span></div></div>
+      </div>
+    </div>
+    <div class="phones">
+      <img class="phone" src="telas/liturgia.png" alt="" />
+      <img class="phone" src="telas/encontro.png" alt="" />
+    </div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>4</span></div>
+</section>
+
+<!-- 5. COMUNIDADE -->
+<section class="slide">
+  <p class="kicker">A serviço da comunidade</p>
+  <h2>Da oração pessoal à vida da paróquia</h2>
+  <div class="row">
+    <div class="col">
+      <div class="list">
+        <div class="item"><div class="dot">✓</div><div><b>Novena dos Círculos Bíblicos</b><span>Cada grupo registra os nove encontros: datas, horários, endereços e famílias que acolhem. O PDF da novena usada pela paróquia pode ser guardado no celular e lido sem internet.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Agenda do Advento</b><span>Missas, confissões, celebrações penitenciais, ensaios do coral, campanhas de solidariedade e encontros das pastorais.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Missas de Natal</b><span>Vigília, Noite, Aurora e Dia. O app não inventa horários: eles são informados pela paróquia e podem ser enviados pelo WhatsApp ou ir para a agenda do celular.</span></div></div>
+      </div>
+    </div>
+    <div class="phones">
+      <img class="phone" src="telas/novena.png" alt="" />
+      <img class="phone" src="telas/circulo.png" alt="" />
+    </div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>5</span></div>
+</section>
+
+<!-- 6. TRADIÇÕES E COMPARTILHAMENTO -->
+<section class="slide">
+  <p class="kicker">Tradições e evangelização</p>
+  <h2>Catequese simples e mensagens para partilhar</h2>
+  <div class="row">
+    <div class="col">
+      <div class="list">
+        <div class="item"><div class="dot">✓</div><div><b>Coroa do Advento</b><span>Significado do círculo, dos ramos e das velas, orações dos quatro domingos e a diferença entre as cores litúrgicas e as tradições locais das velas.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Presépio</b><span>Personagens e significados, passo a passo da montagem, oração, e lembrete para colocar o Menino Jesus na manjedoura no Natal.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Cânticos e Advento em família</b><span>Sugestões por ocasião (letras só de obras em domínio público) e um convite diário para rezar, partilhar e conviver, sem competição.</span></div></div>
+        <div class="item"><div class="dot">✓</div><div><b>Cartões para o WhatsApp e redes sociais</b><span>Orações, frases e convites viram cartões com identidade visual própria, prontos para enviar.</span></div></div>
+      </div>
+    </div>
+    <div class="phones">
+      <img class="phone sm" src="telas/coroa.png" alt="" />
+      <img class="cartao" src="telas/cartao.png" alt="" />
+    </div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>6</span></div>
+</section>
+
+<!-- 7. CUIDADOS -->
+<section class="slide">
+  <p class="kicker">Compromissos</p>
+  <h2>Cuidados que o aplicativo assume</h2>
+  <div class="grid2" style="margin-top:9mm">
+    <div class="card"><span class="tag t-roxo">Fidelidade</span><h3 style="margin-top:3mm">Nada inventado como oficial</h3><p>Não inventa leituras nem atribui frases a santos, papas ou à Bíblia. Os textos próprios do app (orações, reflexões, novena) são identificados como autorais e só serão divulgados após revisão.</p></div>
+    <div class="card"><span class="tag t-verde">Privacidade</span><h3 style="margin-top:3mm">Sem cadastro, dados no celular</h3><p>Não pede nome, e-mail ou telefone. Agenda, intenções de oração e documentos ficam somente no aparelho de cada pessoa, sem envio a servidores. Sem anúncios e sem rastreadores.</p></div>
+    <div class="card"><span class="tag t-dourado">Acessibilidade</span><h3 style="margin-top:3mm">Pensado também para os idosos</h3><p>Três tamanhos de letra, alto contraste, botões grandes, compatível com leitores de tela e apenas quatro áreas no menu: Início, Rezar, Agenda e Mais.</p></div>
+    <div class="card"><span class="tag t-rosa">Simplicidade</span><h3 style="margin-top:3mm">Funciona sem internet</h3><p>Depois de aberto uma vez, orações, liturgia, novena, agenda e PDFs funcionam mesmo sem conexão — inclusive dentro da igreja ou na zona rural.</p></div>
+  </div>
+  <div class="footer"><i>Caminho até Belém</i><span>7</span></div>
+</section>
+
+<!-- 8. PRÓXIMOS PASSOS -->
+<section class="slide">
+  <p class="kicker">Próximos passos</p>
+  <h2>Como a paróquia pode ajudar</h2>
+  <div class="row" style="margin-top:9mm">
+    <div class="col">
+      <ol class="passos">
+        <li><span><b>Revisar e aprovar</b> as orações, reflexões e a Novena de Natal — ou indicar quem possa fazer essa revisão.</span></li>
+        <li><span><b>Conferir a liturgia</b> com o Diretório Litúrgico da CNBB 2026, em especial a festa de Nossa Senhora de Guadalupe (12/12).</span></li>
+        <li><span><b>Informar os horários</b> das Missas de Natal, confissões e celebrações penitenciais da paróquia.</span></li>
+        <li><span><b>Avaliar a divulgação</b> aos fiéis, aos Círculos Bíblicos e às pastorais antes do 1º Domingo do Advento (29/11).</span></li>
+      </ol>
+    </div>
+    <div class="col" style="flex:0 0 105mm">
+      <div class="acesso">
+        <h3>Como os fiéis acessam</h3>
+        <p>Abrir o link no celular e tocar em <b>"Adicionar à tela inicial"</b>. Leva cerca de um minuto, sem cadastro.</p>
+        <p class="url">caminhoatebelem.warleson-dbrandao.workers.dev</p>
+        <p style="margin-top:4mm">O próprio aplicativo mostra o passo a passo para Android e iPhone.</p>
+      </div>
+      <p style="margin-top:6mm; font-size:11pt; color:var(--suave)">Responsável pelo projeto: <b style="color:var(--tinta)">Warleson Brandão</b></p>
+    </div>
+  </div>
+  <div class="footer"><i>“Deus se fez pequeno para caber no nosso abraço.”</i><span>8</span></div>
+</section>
+
+</body>
+</html>
