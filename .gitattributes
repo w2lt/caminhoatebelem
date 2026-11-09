@@ -1,0 +1,5 @@
+# Finais de linha iguais em qualquer computador (evita "arquivo alterado" sem mudança real).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary

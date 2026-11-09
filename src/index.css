@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+/*
+ * Design system — Caminho até Belém
+ * Paleta-base: Roxo #60377D · Rosa #D99AB5 · Dourado #D7B15B · Creme #F8F3E9 · Verde #476D57
+ * Cores usadas como TEXTO têm contraste ≥ 4,5:1 sobre o fundo (WCAG 2.2 AA).
+ * Dourado e rosa claros são decorativos (bordas, ícones, faixas); para texto use as variantes escuras.
+ */
+@theme {
+  --color-roxo: #60377d;
+  --color-roxo-escuro: #46265c;
+  --color-roxo-claro: #efe6f4;
+  --color-rosa: #d99ab5;
+  --color-rosa-texto: #8c3a60;
+  --color-rosa-claro: #f9e8ef;
+  --color-dourado: #d7b15b;
+  --color-dourado-texto: #7a5a12;
+  --color-dourado-claro: #f6ecd2;
+  --color-creme: #f8f3e9;
+  --color-papel: #fffdf8;
+  --color-verde: #476d57;
+  --color-verde-claro: #e3ede6;
+  --color-tinta: #2b2230;
+  --color-tinta-suave: #5a4f60;
+  --color-borda: #e2d8c8;
+  --color-erro: #a3262a;
+  --font-sans: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+}
+
+/* Três tamanhos de letra. Tudo usa rem, então a interface inteira acompanha. */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+html[data-font='grande'] {
+  font-size: 118.75%;
+}
+html[data-font='extra'] {
+  font-size: 137.5%;
+}
+
+/* Alto contraste: texto mais escuro, bordas mais fortes, fundos lisos. */
+html[data-contrast='alto'] {
+  --color-tinta: #000;
+  --color-tinta-suave: #1f1a22;
+  --color-borda: #6b5d73;
+  --color-creme: #ffffff;
+  --color-papel: #ffffff;
+  --color-roxo: #3f1f57;
+  --color-verde: #234a33;
+  --color-rosa-texto: #6b1f43;
+  --color-dourado-texto: #503a05;
+}
+
+body {
+  background: var(--color-creme);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  min-height: 100dvh;
+}
+
+/* Foco sempre visível para quem usa teclado ou leitor de tela. */
+:focus-visible {
+  outline: 3px solid var(--color-dourado-texto);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Texto de leitura (orações e reflexões): serifado e confortável. */
+.leitura {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+.leitura p + p {
+  margin-top: 0.85em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

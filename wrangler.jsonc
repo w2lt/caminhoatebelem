@@ -1,0 +1,17 @@
+// Publicação na Cloudflare (Workers com arquivos estáticos), no mesmo modelo do OrçaFácil.
+// O app é estático (pasta dist). O Worker só roda para /api/* (ativação comercial).
+{
+  "name": "caminhoatebelem",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-04",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Qualquer endereço do app abre o index.html; o React decide a tela.
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  }
+  // Ativação comercial (opcional, ver COMMERCIAL_ACTIVATION.md):
+  // "kv_namespaces": [{ "binding": "LICENSES", "id": "<id do namespace KV>" }]
+  // Segredo: npx wrangler secret put ACTIVATION_PRIVATE_JWK
+}
