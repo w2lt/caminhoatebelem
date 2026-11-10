@@ -8,3 +8,4 @@ test-results
 .wrangler
 .dev.vars
 keys/
+docs/landing/*.zip
