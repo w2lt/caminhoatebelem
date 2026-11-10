@@ -47,7 +47,16 @@ npx wrangler deploy --dry-run
 
 ## 3. Domínio
 
-Use um domínio próprio definitivo (ex.: `app.caminhoatebelem.com.br`) em Workers → Settings → Domains & Routes. **Os dados do usuário ficam ligados ao endereço**: trocar de domínio depois faz o usuário "perder" agenda, intenções e PDFs (teria de restaurar um backup).
+Zona `caminhoatebelem.com.br` na Cloudflare. Dois ambientes, em Workers separados (`wrangler.jsonc`, `routes` com `custom_domain: true` — o domínio e o certificado são criados no primeiro deploy de cada um):
+
+| Ambiente | Endereço | Worker | Comando |
+|---|---|---|---|
+| Produção | **https://app.caminhoatebelem.com.br** | `caminhoatebelem` | `npm run deploy` |
+| Desenvolvimento | https://app-dev.caminhoatebelem.com.br | `caminhoatebelem-dev` | `npm run deploy:dev` |
+
+- O dev recebe `X-Robots-Tag: noindex, nofollow` (`scripts/mark-dev.mjs`) e tem dados, KV e segredos próprios (`--env dev`).
+- Antes do primeiro deploy, não pode haver registro A/CNAME manual para `app` ou `app-dev` no DNS.
+- `caminhoatebelem.com.br` e `www` ficam livres (página de vendas ou redirecionamento 301 para `app.` em Rules → Redirect Rules). Nunca sirva o app de produção em dois endereços. **Os dados do usuário ficam ligados ao endereço**: trocar de domínio depois faz o usuário "perder" agenda, intenções e PDFs (teria de restaurar um backup).
 
 ## 4. Cabeçalhos e cache
 

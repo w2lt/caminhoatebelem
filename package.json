@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "icons": "node scripts/generate-icons.mjs",
     "keys:generate": "node scripts/activation-keys.mjs",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:dev": "npm run build && node scripts/mark-dev.mjs && wrangler deploy --env dev"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",

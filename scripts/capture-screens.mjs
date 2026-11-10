@@ -3,7 +3,7 @@
 import { chromium } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
-const BASE = process.argv[2] || 'https://caminhoatebelem.warleson-dbrandao.workers.dev';
+const BASE = process.argv[2] || 'https://app.caminhoatebelem.com.br';
 const OUT = process.argv[3] || 'docs/apresentacao/telas';
 mkdirSync(OUT, { recursive: true });
 

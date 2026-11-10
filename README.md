@@ -32,7 +32,8 @@ Abra `http://localhost:5173`. Para ver o conteúdo de outro dia, use `?hoje=AAAA
 | `node scripts/capture-screens.mjs [url] [pasta]` | Captura as telas do app (celular) — usado na apresentação |
 | `node scripts/build-presentation.mjs` | Gera o PDF da apresentação para a paróquia |
 | `npm run keys:generate -- keys` | Gera o par de chaves da ativação comercial (ver COMMERCIAL_ACTIVATION.md) |
-| `npm run deploy` | Build + publicação na Cloudflare (`wrangler deploy`) |
+| `npm run deploy` | Build + publicação em produção: https://app.caminhoatebelem.com.br |
+| `npm run deploy:dev` | Build + publicação em desenvolvimento: https://app-dev.caminhoatebelem.com.br (não indexado) |
 
 ## Situação do MVP
 
@@ -51,7 +52,7 @@ Abra `http://localhost:5173`. Para ver o conteúdo de outro dia, use `?hoje=AAAA
 | Compartilhamento (texto, WhatsApp, cartões 9:16, 4:5, 1:1) | ✅ Implementado e testado |
 | Backup/restauração com validação | ✅ Implementado e testado |
 | Ativação comercial | ✅ Interface, contrato de API e Worker implementados e testados · ⏳ **desligada** até a infraestrutura (KV, chaves, códigos) ser configurada |
-| Publicação (GitHub + Cloudflare) | ⏳ Pronto para publicar; não publicado |
+| Publicação (GitHub + Cloudflare) | ✅ Publicado: produção https://app.caminhoatebelem.com.br · desenvolvimento https://app-dev.caminhoatebelem.com.br |
 
 As pendências completas estão em [CONTENT_PENDING_REVIEW.md](CONTENT_PENDING_REVIEW.md) e no fim de [DEPLOYMENT.md](DEPLOYMENT.md).
 

@@ -1,5 +1,10 @@
 // Publicação na Cloudflare (Workers com arquivos estáticos), no mesmo modelo do OrçaFácil.
 // O app é estático (pasta dist). O Worker só roda para /api/* (ativação comercial).
+//
+// Dois ambientes, em Workers separados (dados, KV e chaves nunca se misturam):
+//   produção        → npm run deploy      → https://app.caminhoatebelem.com.br
+//   desenvolvimento → npm run deploy:dev  → https://app-dev.caminhoatebelem.com.br
+// Os dados do usuário ficam ligados ao endereço: não troque o domínio de produção depois de divulgar.
 {
   "name": "caminhoatebelem",
   "main": "worker/index.ts",
@@ -10,8 +15,26 @@
     // Qualquer endereço do app abre o index.html; o React decide a tela.
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
-  }
+  },
+  "routes": [{ "pattern": "app.caminhoatebelem.com.br", "custom_domain": true }],
   // Ativação comercial (opcional, ver COMMERCIAL_ACTIVATION.md):
   // "kv_namespaces": [{ "binding": "LICENSES", "id": "<id do namespace KV>" }]
   // Segredo: npx wrangler secret put ACTIVATION_PRIVATE_JWK
+
+  "env": {
+    "dev": {
+      // Worker "caminhoatebelem-dev". O build de dev recebe "X-Robots-Tag: noindex" (scripts/mark-dev.mjs).
+      "name": "caminhoatebelem-dev",
+      "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"]
+      },
+      "routes": [{ "pattern": "app-dev.caminhoatebelem.com.br", "custom_domain": true }]
+      // KV próprio do dev, se a ativação for testada:
+      // "kv_namespaces": [{ "binding": "LICENSES", "id": "<id do KV de dev>" }]
+      // Segredo: npx wrangler secret put ACTIVATION_PRIVATE_JWK --env dev
+    }
+  }
 }
