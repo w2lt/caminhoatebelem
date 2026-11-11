@@ -71,7 +71,8 @@ test.describe('Caminho até Belém — fluxos principais', () => {
     await expect(page.getByRole('heading', { name: 'Natal do Senhor' })).toBeVisible();
     for (const m of ['Missa da Noite', 'Missa da Aurora', 'Missa do Dia']) await expect(page.getByRole('heading', { name: m })).toBeVisible();
     await expect(page.getByText('Jo 1,1-18')).toBeVisible();
-    await expect(page.getByRole('link', { name: /Vatican News/ })).toHaveAttribute('href', /2026\/12\/25/);
+    await expect(page.getByRole('link', { name: /Ler as leituras completas/ }).first()).toHaveAttribute('href', 'https://liturgia.cancaonova.com/pb/');
+    await expect(page.getByRole('link', { name: /Vatican News/ })).toHaveCount(0);
   });
 
   test('agenda: criar, destacar próximo, editar e excluir com confirmação', async ({ page }) => {

@@ -22,7 +22,7 @@ Conferir **cada data** com o **Diretório Litúrgico da CNBB 2026** e o Lecioná
 | Todas | Versículos exatos dos salmos (o app mostra só o número do salmo, sem versículos, para não errar); **aclamação ao Evangelho não cadastrada** (o app remete à fonte). |
 
 Também conferir:
-- Links das fontes em `src/content/index.ts` (`fontesOficiais`): Vatican News (por data), CNBB e Canção Nova (páginas gerais). Confirmar URLs e, se possível, obter links por data.
+- Links das fontes em `src/content/index.ts` (`fontesOficiais`): Canção Nova e CNBB (páginas gerais, abrem nas leituras do dia). O link por data do Vatican News foi retirado em 11/11/2026 (dava erro 404). O texto integral das leituras não é incluído no app: é da CNBB, com todos os direitos reservados (aviso no site da Canção Nova); só com licença por escrito.
 - **Licença de texto integral**: não há. Se a CNBB/editora autorizar, preencher `textoIntegral`.
 
 ## 2. Conteúdo autoral (todo com `revisao: 'pendente'`)

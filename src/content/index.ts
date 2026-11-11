@@ -32,12 +32,14 @@ export function liturgiaPorData(data: string): LiturgiaDia | undefined {
   return PACOTES[Number(data.slice(0, 4))]?.liturgia.find((l) => l.data === data);
 }
 
-/** Links para fontes oficiais/autorizadas (texto integral requer conexão). */
-export function fontesOficiais(data: string): { nome: string; url: string }[] {
-  const [y, m, d] = data.split('-');
+/**
+ * Links para fontes que publicam o texto integral das leituras (requer conexão).
+ * O texto das leituras é da CNBB (todos os direitos reservados), por isso o app mostra só as referências.
+ * A Canção Nova abre sempre nas leituras do dia e tem calendário para os demais dias.
+ */
+export function fontesOficiais(_data: string): { nome: string; url: string }[] {
   return [
-    { nome: 'Vatican News — Evangelho do dia', url: `https://www.vaticannews.va/pt/evangelho-do-dia/${y}/${m}/${d}.html` },
-    { nome: 'CNBB — Liturgia diária', url: 'https://www.cnbb.org.br/liturgia-diaria/' },
     { nome: 'Canção Nova — Liturgia diária', url: 'https://liturgia.cancaonova.com/pb/' },
+    { nome: 'CNBB — Liturgia diária', url: 'https://www.cnbb.org.br/liturgia-diaria/' },
   ];
 }

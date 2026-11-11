@@ -16,7 +16,7 @@ import { useToast } from '../../ui/feedback';
 
 function programacao(c: Circle): string {
   const linhas = c.meetings.map(
-    (m) => `${m.number}º encontro — ${m.date ? tinyDate(m.date) : 'data a definir'}${m.time ? ` às ${m.time}` : ''}${m.family ? ` · ${m.family}` : ''}${m.address ? ` · ${m.address}` : ''}`,
+    (m) => `${m.number}º encontro${m.theme ? `: ${m.theme}` : ''} — ${m.date ? tinyDate(m.date) : 'data a definir'}${m.time ? ` às ${m.time}` : ''}${m.family ? ` · ${m.family}` : ''}${m.address ? ` · ${m.address}` : ''}`,
   );
   return [`Novena de Natal — ${c.name || 'Círculo Bíblico'}`, c.community ? `Comunidade: ${c.community}` : '', '', ...linhas].filter((l) => l !== undefined).join('\n');
 }
@@ -114,7 +114,9 @@ export function CirculoPage() {
                   </button>
                   <button type="button" aria-expanded={isOpen} aria-controls={`enc-${m.number}`} onClick={() => setOpen(isOpen ? null : m.number)} className="flex min-h-12 flex-1 items-center gap-2 text-left">
                     <span className="flex-1">
-                      <span className="block font-bold">{m.number}º encontro</span>
+                      <span className="block font-bold">
+                        {m.number}º encontro{m.theme && <span className="font-normal text-tinta">: {m.theme}</span>}
+                      </span>
                       <span className="block text-sm text-tinta-suave">
                         {m.date ? tinyDate(m.date) : 'Sem data'}
                         {m.time && ` · ${m.time}`}
@@ -126,6 +128,13 @@ export function CirculoPage() {
                 </div>
                 {isOpen && (
                   <div id={`enc-${m.number}`} className="grid gap-3 border-t border-borda p-3">
+                    <TextField
+                      label="Tema do encontro"
+                      value={m.theme ?? ''}
+                      maxLength={160}
+                      onChange={(e) => setMeeting(m.number, { theme: e.target.value })}
+                      placeholder="Ex.: O sim de Maria"
+                    />
                     <div className="grid grid-cols-2 gap-3">
                       <TextField label="Data" type="date" value={m.date} onChange={(e) => setMeeting(m.number, { date: e.target.value })} />
                       <TextField label="Horário" type="time" value={m.time} onChange={(e) => setMeeting(m.number, { time: e.target.value })} />
@@ -155,7 +164,7 @@ export function CirculoPage() {
                 .filter((m) => m.date)
                 .map((m) => ({
                   uid: `circulo-${m.number}-${m.date}`,
-                  title: `Novena (${form.name || 'Círculo Bíblico'}) — ${m.number}º encontro`,
+                  title: `Novena (${form.name || 'Círculo Bíblico'}) — ${m.number}º encontro${m.theme ? `: ${m.theme}` : ''}`,
                   date: m.date,
                   time: m.time || undefined,
                   location: m.address,

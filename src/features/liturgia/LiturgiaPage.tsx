@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { BookOpen, ExternalLink as ExtIcon, Info, ChevronLeft, ChevronRight, Target } from 'lucide-react';
 import { fontesOficiais, liturgiaPorData } from '../../content';
 import { CORES_LITURGICAS } from '../../content/tradicoes';
-import { addDaysIso, isValidIso, longDate } from '../../domain/dates';
+import { addDaysIso, isValidIso, longDate, todayIso } from '../../domain/dates';
 import { liturgicalDay } from '../../domain/liturgical';
 import { useOnline } from '../../lib/hooks';
 import { Badge, Card, EmptyState, ExternalLink, PageHeader, ReviewNote } from '../../ui/kit';
@@ -112,9 +112,14 @@ export function LiturgiaPage() {
                           rel="noopener noreferrer"
                           className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 font-bold text-creme ring-1 ring-white/25"
                         >
-                          Ler o Evangelho completo <ExtIcon aria-hidden className="size-4" />
-                          <span className="sr-only"> (abre fora do app, requer internet)</span>
+                          Ler as leituras completas <ExtIcon aria-hidden className="size-4" />
+                          <span className="sr-only"> (abre o site da Canção Nova, requer internet)</span>
                         </a>
+                        <p className="mt-2 text-sm text-creme/80">
+                          {lit.data === todayIso()
+                            ? 'Abre no site da Canção Nova, nas leituras de hoje.'
+                            : 'Abre no site da Canção Nova, nas leituras de hoje. Para este dia, escolha a data no calendário do site.'}
+                        </p>
                       </div>
                     </li>
                   ) : (

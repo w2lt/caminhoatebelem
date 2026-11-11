@@ -76,6 +76,8 @@ export interface CircleMeeting {
   number: number; // 1..9
   date: string;
   time: string;
+  /** Tema do encontro (ausente em registros antigos). */
+  theme?: string;
   address: string;
   family: string;
   notes: string;

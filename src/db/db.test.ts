@@ -79,6 +79,18 @@ describe('preferências, progresso e novena', () => {
     await expect(saveCircle({ ...c, meetings: c.meetings.slice(0, 3) })).rejects.toThrow();
   });
 
+  it('Círculo Bíblico: tema do encontro é salvo e registros antigos sem tema continuam válidos', async () => {
+    const c = emptyCircle(2026);
+    c.meetings[0]!.theme = '  O sim de Maria ';
+    await saveCircle(c);
+    expect((await db.circle.get('principal'))?.meetings[0]?.theme).toBe('O sim de Maria');
+    // registro antigo (sem o campo theme)
+    const antigo = { ...c, meetings: c.meetings.map(({ theme: _t, ...m }) => m) };
+    await saveCircle(antigo);
+    expect((await db.circle.get('principal'))?.meetings[0]?.theme).toBe('');
+    await expect(saveCircle({ ...c, meetings: c.meetings.map((m) => ({ ...m, theme: 'x'.repeat(161) })) })).rejects.toThrow();
+  });
+
   it('mudar a modalidade da novena não apaga o Círculo', async () => {
     await saveCircle({ ...emptyCircle(2026), name: 'Grupo' });
     await setSetting('novenaMode', 'circulo');

@@ -8,6 +8,8 @@ export const meetingSchema = z.object({
   number: z.number().int().min(1).max(9),
   date: z.string().regex(/^(\d{4}-\d{2}-\d{2})?$/, 'Data inválida'),
   time: z.string().regex(/^(\d{2}:\d{2})?$/, 'Horário inválido'),
+  // Tema do encontro (opcional; registros e backups antigos não têm o campo).
+  theme: text(160).default(''),
   address: text(200),
   family: text(120),
   notes: text(500),
@@ -29,6 +31,7 @@ export function emptyMeetings(year: number): CircleMeeting[] {
     number: i + 1,
     date: `${year}-12-${String(16 + i).padStart(2, '0')}`,
     time: '',
+    theme: '',
     address: '',
     family: '',
     notes: '',
